@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+#MySQL 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zhihuiwen_data
+    username: root
+    password: 123456
+
+#Redis 数据库配置
+
