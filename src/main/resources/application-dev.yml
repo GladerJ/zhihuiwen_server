@@ -1,13 +1,83 @@
 server:
   port: 8081
 
-#MySQL 数据库配置
+
 spring:
+
+  #MySQL 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/zhihuiwen_data
     username: root
     password: 123456
 
+  # 邮箱配置
+  mail:
+    host: smtp.163.com
+    username: zhihuiwen2025@163.com
+    password: PZdt9v4xACSzteWJ
+    port: 465
+    protocol: smtp
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          from: zhihuiwen2025@163.com
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+
 #Redis 数据库配置
+  data:
+    redis:
+      host: localhost       # Redis 服务器地址
+      port: 6379            # Redis 端口
+      password:             # 如果有密码，填入密码；没有可以留空
+      database: 0           # 使用的数据库编号
+      timeout: 6000ms       # 连接超时时间
+      jedis:
+        pool:
+          max-active: 8     # 连接池最大连接数
+          max-idle: 8       # 连接池中最多空闲的连接数
+          min-idle: 0       # 连接池中最少空闲的连接数
+          max-wait: -1ms    # 获取连接的最大等待时间，-1 表示无限等待
+
+
+# 滑块验证码配置
+aj:
+  captcha:
+#    jigsaw: classpath:images/jigsaw
+#    pic-click: classpath:images/pic-click
+    cache-type: local
+    type: default
+    water-mark: "智汇问"
+    slip-offset: 5
+    aes-status: true
+    interference-options: 2
+    font-style: 1
+    font-size: 25
+    history-data-clear-enable: false
+    req-frequency-limit-enable: false
+    req-get-lock-limit: 5
+    req-get-lock-seconds: 360
+    req-get-minute-limit: 30
+    req-check-minute-limit: 30
+    # req-verify-minute-limit: 30 # Uncomment if needed
+
+
+
+
+
+
+
+
+
+
+
 

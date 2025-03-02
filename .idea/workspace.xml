@@ -5,12 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="init">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/common/Result.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CaptchaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/RegisterDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/EmailSenderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/RedisService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/VerifyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/EmailSenderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/RedisServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/VerifyServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/ValidCheckUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/font/SimHei.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -33,6 +69,10 @@
     &quot;accountId&quot;: &quot;20cac1b3-6bc7-42be-b90c-048bc32dba0c&quot;
   }
 }</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -54,24 +94,93 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;JUnit.ZhihuiwenServerApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ZhihuiwenServerApplicationTests.test1.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.zhihuiwen_server [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ZhihuiwenServerApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/mall-main/mall-admin-server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/zhihuiwen/zhihuiwen_server&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
+      &quot;redis&quot;,
       &quot;mysql&quot;
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\zhihuiwen\zhihuiwen_server\src\main\resources\font" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ZhihuiwenServerApplication">
+    <configuration name="ZhihuiwenServerApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="zhihuiwen_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="top.mygld.zhihuiwen_server" />
+      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.ZhihuiwenServerApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZhihuiwenServerApplicationTests.test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="zhihuiwen_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="top.mygld.zhihuiwen_server" />
+      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.ZhihuiwenServerApplicationTests" />
+      <option name="METHOD_NAME" value="test1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZhihuiwenServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="zhihuiwen_server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="top.mygld.zhihuiwen_server.ZhihuiwenServerApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ZhihuiwenServerApplication" />
+        <item itemvalue="JUnit.ZhihuiwenServerApplicationTests.test1" />
+        <item itemvalue="JUnit.ZhihuiwenServerApplicationTests.contextLoads" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -91,7 +200,21 @@
       <workItem from="1740029654761" duration="439000" />
       <workItem from="1740235161012" duration="30000" />
       <workItem from="1740649473963" duration="1078000" />
-      <workItem from="1740650573449" duration="301000" />
+      <workItem from="1740650573449" duration="755000" />
+      <workItem from="1740651346220" duration="920000" />
+      <workItem from="1740652290680" duration="1545000" />
+      <workItem from="1740654774325" duration="2860000" />
+      <workItem from="1740658602966" duration="207000" />
+      <workItem from="1740665436886" duration="1240000" />
+      <workItem from="1740666699878" duration="8497000" />
+      <workItem from="1740712447785" duration="8858000" />
+      <workItem from="1740723794134" duration="969000" />
+      <workItem from="1740724823382" duration="177000" />
+      <workItem from="1740725365055" duration="4029000" />
+      <workItem from="1740730013294" duration="16162000" />
+      <workItem from="1740750660326" duration="16000" />
+      <workItem from="1740751452390" duration="324000" />
+      <workItem from="1740837938119" duration="184000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -109,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740650596956</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="init">
+      <option name="closed" value="true" />
+      <created>1740650911069</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1740650911069</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
