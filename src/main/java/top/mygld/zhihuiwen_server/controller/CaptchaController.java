@@ -34,9 +34,9 @@ public class CaptchaController {
     }
 
     //@PostMapping("/verify")
-    public ResponseModel verify(@RequestBody CaptchaVO data, HttpServletRequest request) {
-        return captchaService.verification(data);
-    }
+//    public ResponseModel verify(@RequestBody CaptchaVO data, HttpServletRequest request) {
+//        return captchaService.verification(data);
+//    }
 
     public static final String getRemoteId(HttpServletRequest request) {
         String xfwd = request.getHeader("X-Forwarded-For");

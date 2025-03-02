@@ -63,6 +63,40 @@
             <scope>provided</scope>
         </dependency>
 
+<!--        腾讯云对象存储api-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.54</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+<!--            <version>${spring.version}</version>-->
+            <!-- 如果你希望在生产代码中使用它，可以去掉 scope -->
+<!--            <scope>test</scope>-->
+        </dependency>
+
+<!--        jwt令牌依赖-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+<!--        security依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!--        json依赖-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.83</version>
+        </dependency>
+
 
 
     </dependencies>

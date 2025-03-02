@@ -8,4 +8,5 @@ public interface UserService {
     public void insertUser(User user);
     public List<User> selectUserByUsername(String username);
     public List<User> selectUserByEmail(String email);
+    public List<User> selectUserByUsernameAndPassword(String username,String password);
 }

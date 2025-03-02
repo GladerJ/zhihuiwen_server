@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectUserByEmail(email);
     }
 
+    @Override
+    public List<User> selectUserByUsernameAndPassword(String username, String password) {
+        return userMapper.selectUserByUsernameAndPassword(username,password);
+    }
+
 }

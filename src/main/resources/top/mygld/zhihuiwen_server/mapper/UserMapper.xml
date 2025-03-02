@@ -10,5 +10,8 @@
     <select id="selectUserByEmail" resultType="top.mygld.zhihuiwen_server.pojo.User">
         select * from user where email = #{email}
     </select>
+    <select id="selectUserByUsernameAndPassword" resultType="top.mygld.zhihuiwen_server.pojo.User">
+        select * from user where username = #{param1} and password = #{param2}
+    </select>
 
 </mapper>

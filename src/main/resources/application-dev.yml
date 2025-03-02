@@ -55,7 +55,7 @@ aj:
 #    jigsaw: classpath:images/jigsaw
 #    pic-click: classpath:images/pic-click
     cache-type: local
-    type: default
+
     water-mark: "智汇问"
     slip-offset: 5
     aes-status: true
@@ -71,13 +71,18 @@ aj:
     # req-verify-minute-limit: 30 # Uncomment if needed
 
 
+# 腾讯云对象存储api配置
+tencent:
+  cos:
+    secretId: AKIDBE8prpbEmCSZXLxOekcgYFl4B5tUt41n
+    secretKey: c3LSM3XoxvgEfttlS3SdaMuEKG62oN0m
+    region: ap-nanjing
+    bucketName: hello1-1309694135
 
 
-
-
-
-
-
-
+#JWT令牌相关配置
+jwt:
+  secret: g77En8R8xoAQNj1i64Z4p1lfgICaBc240S5u-YDJd-8
+  expirationTime: 604800000 # 7天有效期
 
 
