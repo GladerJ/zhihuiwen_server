@@ -33,7 +33,8 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
-                        .requestMatchers("/user/loginByPassword", "/captcha/get", "/captcha/check", "/user/verify/sendForRegister").permitAll()
+                        .requestMatchers("/user/loginByPassword", "/captcha/get", "/captcha/check", "/user/verify/sendForRegister",
+                                "/user/verify/sendForLogin", "/user/loginByEmail").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

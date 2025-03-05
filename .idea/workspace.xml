@@ -4,30 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/02/01">
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CosConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/JWTConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/exception/MyCustomException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/security/JwtAuthenticationEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CosService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/CosServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/JWTUtil.java" afterDir="false" />
+    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/02">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/RegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +213,13 @@
       <workItem from="1740751452390" duration="324000" />
       <workItem from="1740837938119" duration="184000" />
       <workItem from="1740888778321" duration="14913000" />
-      <workItem from="1740916064823" duration="13443000" />
+      <workItem from="1740916064823" duration="14047000" />
+      <workItem from="1740972919174" duration="3053000" />
+      <workItem from="1740980830749" duration="549000" />
+      <workItem from="1740982889258" duration="5847000" />
+      <workItem from="1740999524693" duration="233000" />
+      <workItem from="1741142923416" duration="15637000" />
+      <workItem from="1741177427353" duration="3542000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -262,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740888875755</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="2025/03/02">
+      <option name="closed" value="true" />
+      <created>1740933439498</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740933439498</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +270,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="2025/02/01" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/02/01" />
+    <MESSAGE value="2025/03/02" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/03/02" />
   </component>
 </project>

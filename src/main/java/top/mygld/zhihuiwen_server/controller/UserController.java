@@ -12,9 +12,11 @@ import top.mygld.zhihuiwen_server.service.impl.CosService;
 import top.mygld.zhihuiwen_server.service.impl.UserService;
 import top.mygld.zhihuiwen_server.service.impl.VerifyService;
 import top.mygld.zhihuiwen_server.utils.JWTUtil;
+import top.mygld.zhihuiwen_server.utils.ValidCheckUtil;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -55,7 +57,7 @@ public class UserController {
            return result;
         }
         if (userDTO.getAvatar() == null){
-            userService.insertUser(new User(null, "https://b0.bdstatic.com/0df6c8c7f109aa7b67e7cb15e6f8d025.jpg@h_1280", userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword()));
+            userService.insertUser(new User(null, "https://b0.bdstatic.com/0df6c8c7f109aa7b67e7cb15e6f8d025.jpg@h_1280", userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword(), new Date(), new Date()));
             return Result.success("注册成功");
         }
         String url = null;
@@ -67,7 +69,7 @@ public class UserController {
         } catch (IOException e) {
             return Result.error("上传失败");
         }
-        userService.insertUser(new User(null, url, userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword()));
+        userService.insertUser(new User(null, url, userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword(),new Date(),new Date()));
         return Result.success("注册成功");
     }
 
@@ -97,7 +99,36 @@ public class UserController {
     public Result<UserDTO> getProfile() {
         List<User> users = userService.selectUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if (users.size() == 0) return Result.error("用户不存在");
-        return Result.success(new UserDTO(users.get(0).getUsername(), null, users.get(0).getEmail(), null, users.get(0).getAvatar()));
+        return Result.success(new UserDTO(users.get(0).getUsername(), null, users.get(0).getEmail(), null, users.get(0).getAvatar(),null,null));
     }
+
+    @RequestMapping("/loginByEmail")
+    public Result<String> loginByEmail(@RequestBody UserDTO userDTO) {
+        String code = userDTO.getCaptcha();
+        String email = userDTO.getEmail();
+        if (code == null){
+            return Result.error("验证码不能为空");
+        }
+        if(!ValidCheckUtil.isValidEmail(email)){
+            return Result.error("邮箱不合法");
+        }
+        Result<String> result = verifyService.checkCode(email, code);
+        if (!result.getCode().equals(200)){
+            return result;
+        }
+        List<User> users = userService.selectUserByEmail(email);
+        if (users.size() == 0) return Result.error("用户不存在");
+        String token = JWTUtil.generateToken(users.get(0).getUsername());
+        return Result.success(token);
+    }
+
+    @RequestMapping("/verify/sendForLogin")
+    public Result<String> sendForLogin(String email, String captchaVerification) {
+        if(userService.selectUserByEmail(email).size() == 0){
+            return Result.error("邮箱尚未被注册，请先注册");
+        }
+        return verifyService.sendCode(email, captchaVerification);
+    }
+
 
 }
