@@ -3,6 +3,8 @@ package top.mygld.zhihuiwen_server;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import top.mygld.zhihuiwen_server.pojo.Category;
+import top.mygld.zhihuiwen_server.service.impl.CategoryService;
 import top.mygld.zhihuiwen_server.service.impl.CosService;
 import top.mygld.zhihuiwen_server.service.impl.EmailSenderService;
 import top.mygld.zhihuiwen_server.service.impl.RedisService;
@@ -30,6 +32,13 @@ class ZhihuiwenServerApplicationTests {
     void test1(){
         //redisService.setValueWithExpiry("test", "test", 60, TimeUnit.SECONDS);
         System.out.println(redisService.getValue("test"));
+    }
+
+    @Autowired
+    CategoryService categoryService;
+    @Test
+    void test2(){
+        System.out.println(categoryService.selectQuestionnaireCategoryByUsername("glader123",1,10));
     }
 
 

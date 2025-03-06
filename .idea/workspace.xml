@@ -4,15 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/02">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" afterDir="false" />
+    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/05">
+      <change afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/CategoryMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Questionnaire.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sql/test_data.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/CategoryMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +102,9 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -102,6 +115,9 @@
     ]
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\zhihuiwen\zhihuiwen_server\src\main\resources\font" />
@@ -219,7 +235,12 @@
       <workItem from="1740982889258" duration="5847000" />
       <workItem from="1740999524693" duration="233000" />
       <workItem from="1741142923416" duration="15637000" />
-      <workItem from="1741177427353" duration="3542000" />
+      <workItem from="1741177427353" duration="3591000" />
+      <workItem from="1741189920970" duration="214000" />
+      <workItem from="1741190145012" duration="181000" />
+      <workItem from="1741192292538" duration="95000" />
+      <workItem from="1741192401672" duration="675000" />
+      <workItem from="1741244978807" duration="13446000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -261,16 +282,36 @@
       <option name="project" value="LOCAL" />
       <updated>1740933439498</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="2025/03/05">
+      <option name="closed" value="true" />
+      <created>1741181604149</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741181604149</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="2025/02/01" />
     <MESSAGE value="2025/03/02" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/03/02" />
+    <MESSAGE value="2025/03/05" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/03/05" />
   </component>
 </project>

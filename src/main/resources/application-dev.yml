@@ -86,3 +86,18 @@ jwt:
   expirationTime: 604800000 # 7天有效期
 
 
+#分页工具配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+logging:
+  level:
+    com.example.mapper: debug
+
+# 开启驼峰映射
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
