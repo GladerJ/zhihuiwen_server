@@ -12,13 +12,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import top.mygld.zhihuiwen_server.config.JWTConfig;
+import top.mygld.zhihuiwen_server.utils.JWTUtil;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-    @Autowired
-    private JWTConfig jwtConfig;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -31,10 +28,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
             try {
                 // 调用 JWTConfig 中的方法解析 token 获取用户名
-                String username = jwtConfig.getUsernameFromToken(token);
+                Long userId = JWTUtil.getUserIdFromToken(token);
                 // 如果解析成功则创建一个认证对象，权限列表为空
                 UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(username, null, Collections.emptyList());
+                        new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
                 // 将认证信息放入 Spring Security 上下文
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {

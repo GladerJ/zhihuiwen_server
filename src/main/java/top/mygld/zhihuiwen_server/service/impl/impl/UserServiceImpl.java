@@ -6,6 +6,7 @@ import top.mygld.zhihuiwen_server.mapper.UserMapper;
 import top.mygld.zhihuiwen_server.pojo.User;
 import top.mygld.zhihuiwen_server.service.impl.UserService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,22 +15,37 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     @Override
     public void insertUser(User user) {
+        if(user.getCreatedAt() == null) user.setCreatedAt(new Date());
+        if(user.getUpdatedAt() == null) user.setUpdatedAt(new Date());
         userMapper.insertUser(user);
     }
-
     @Override
-    public List<User> selectUserByUsername(String username) {
-        return userMapper.selectUserByUsername(username);
+    public User selectUserByUsername(String username) {
+        List<User> users = userMapper.selectUserByUsername(username);
+        return users.size() > 0 ? users.get(0) : null;
     }
 
     @Override
-    public List<User> selectUserByEmail(String email) {
-        return userMapper.selectUserByEmail(email);
+    public User selectUserByEmail(String email) {
+        List<User> users = userMapper.selectUserByEmail(email);
+        return users.size() > 0 ? users.get(0) : null;
     }
 
     @Override
-    public List<User> selectUserByUsernameAndPassword(String username, String password) {
-        return userMapper.selectUserByUsernameAndPassword(username,password);
+    public User selectUserByUsernameAndPassword(String username, String password) {
+        List<User> users = userMapper.selectUserByUsernameAndPassword(username,password);
+        return users.size() > 0 ? users.get(0) : null;
+    }
+
+    @Override
+    public Long getUserIdByUsername(String username) {
+        return userMapper.selectUserByUsername(username).get(0).getId();
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        List<User> users = userMapper.selectUserById(id);
+        return users.size() > 0 ? users.get(0) : null;
     }
 
 }

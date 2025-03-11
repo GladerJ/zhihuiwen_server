@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
                         .requestMatchers("/user/loginByPassword", "/captcha/get", "/captcha/check", "/user/verify/sendForRegister",
-                                "/user/verify/sendForLogin", "/user/loginByEmail").permitAll()
+                                "/user/verify/sendForLogin", "/user/loginByEmail","/api/ai/streamChat").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

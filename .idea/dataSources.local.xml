@@ -23,8 +23,8 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
-            <name qname="@" />
             <name qname="zhihuiwen_data" />
+            <name qname="@" />
           </node>
         </introspection-scope>
       </schema-mapping>

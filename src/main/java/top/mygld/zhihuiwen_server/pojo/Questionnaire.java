@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
 * 问卷表
@@ -21,19 +22,15 @@ public class Questionnaire {
     /**
     * 问卷唯一标识
     */
-    private Integer id;
-    /**
-    * 来源模板ID
-    */
-    private Integer templateId;
+    private Long id;
     /**
     * 分类ID
     */
-    private Integer categoryId;
+    private Long categoryId;
     /**
     * 创建用户ID
     */
-    private Integer userId;
+    private Long userId;
     /**
     * 问卷标题
     */
@@ -62,5 +59,6 @@ public class Questionnaire {
     * 更新时间
     */
     private Date updatedAt;
+    private List<QuestionnaireQuestion> questions;
 
 }

@@ -8,6 +8,7 @@ import top.mygld.zhihuiwen_server.service.impl.CategoryService;
 import top.mygld.zhihuiwen_server.service.impl.CosService;
 import top.mygld.zhihuiwen_server.service.impl.EmailSenderService;
 import top.mygld.zhihuiwen_server.service.impl.RedisService;
+import top.mygld.zhihuiwen_server.utils.AIUtil;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -41,5 +42,9 @@ class ZhihuiwenServerApplicationTests {
         System.out.println(categoryService.selectQuestionnaireCategoryByUsername("glader123",1,10));
     }
 
+    @Test
+    void test3(){
+        System.out.println(AIUtil.generate("你是一个助手","python是什么",true));
+    }
 
 }

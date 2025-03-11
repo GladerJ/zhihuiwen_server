@@ -17,4 +17,5 @@ public class UserDTO {
     private String avatar;
     private Date createdAt;
     private Date updatedAt;
+    private Long id;
 }

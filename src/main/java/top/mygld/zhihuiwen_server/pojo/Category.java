@@ -16,12 +16,12 @@ public class Category {
     /**
      * 分类唯一标识
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 所属用户ID
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 分类名称
@@ -47,5 +47,10 @@ public class Category {
      * 更新时间
      */
     private Date updatedAt;
+
+    /**
+     * 问卷数量
+     */
+    private Long questionnaireCount;
 
 }

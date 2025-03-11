@@ -44,7 +44,7 @@ public class UserController {
         if (!Pattern.matches(usernamePattern, userDTO.getUsername())) {
             return Result.error("用户名只能包含字母和数字");
         }
-        if(userService.selectUserByUsername(userDTO.getUsername()).size() > 0){
+        if(userService.selectUserByUsername(userDTO.getUsername()) != null){
             return Result.error("用户名已存在");
         }
         String code = userDTO.getCaptcha();
@@ -75,7 +75,7 @@ public class UserController {
 
     @RequestMapping("/verify/sendForRegister")
     public Result<String> sendVerifyCode(String email, String captchaVerification) {
-        if(userService.selectUserByEmail(email).size() > 0){
+        if(userService.selectUserByEmail(email) != null){
             return Result.error("邮箱已被注册");
         }
         return verifyService.sendCode(email, captchaVerification);
@@ -88,18 +88,18 @@ public class UserController {
         if (!Pattern.matches(usernamePattern, userDTO.getUsername())) {
             return Result.error("用户名只能包含字母和数字");
         }
-        if(userService.selectUserByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword()).size() == 0){
+        if(userService.selectUserByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword()) == null){
             return Result.error("用户名或密码错误");
         }
-        String token = JWTUtil.generateToken(userDTO.getUsername());
+        String token = JWTUtil.generateToken(userService.getUserIdByUsername(userDTO.getUsername()));
         return Result.success(token);
     }
 
     @RequestMapping("/profile")
     public Result<UserDTO> getProfile() {
-        List<User> users = userService.selectUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        if (users.size() == 0) return Result.error("用户不存在");
-        return Result.success(new UserDTO(users.get(0).getUsername(), null, users.get(0).getEmail(), null, users.get(0).getAvatar(),null,null));
+        User user = userService.getUserById((Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if (user == null) return Result.error("用户不存在");
+        return Result.success(new UserDTO(user.getUsername(), null, user.getEmail(), null, user.getAvatar(),null,null,null));
     }
 
     @RequestMapping("/loginByEmail")
@@ -116,15 +116,15 @@ public class UserController {
         if (!result.getCode().equals(200)){
             return result;
         }
-        List<User> users = userService.selectUserByEmail(email);
-        if (users.size() == 0) return Result.error("用户不存在");
-        String token = JWTUtil.generateToken(users.get(0).getUsername());
+        User user = userService.selectUserByEmail(email);
+        if (user == null) return Result.error("用户不存在");
+        String token = JWTUtil.generateToken(userService.getUserIdByUsername(userDTO.getUsername()));
         return Result.success(token);
     }
 
     @RequestMapping("/verify/sendForLogin")
     public Result<String> sendForLogin(String email, String captchaVerification) {
-        if(userService.selectUserByEmail(email).size() == 0){
+        if(userService.selectUserByEmail(email) == null){
             return Result.error("邮箱尚未被注册，请先注册");
         }
         return verifyService.sendCode(email, captchaVerification);

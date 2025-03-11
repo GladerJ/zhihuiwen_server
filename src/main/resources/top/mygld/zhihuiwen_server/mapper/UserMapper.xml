@@ -13,5 +13,8 @@
     <select id="selectUserByUsernameAndPassword" resultType="top.mygld.zhihuiwen_server.pojo.User">
         select * from user where username = #{param1} and password = #{param2}
     </select>
+    <select id="selectUserById" resultType="top.mygld.zhihuiwen_server.pojo.User">
+        select * from user where id = #{id}
+    </select>
 
 </mapper>

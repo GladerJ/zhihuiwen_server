@@ -101,3 +101,10 @@ logging:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+
+# AI 接口配置
+ai:
+  url: https://api.siliconflow.cn/v1/chat/completions
+  key: sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx
+  model: deepseek-ai/DeepSeek-V2.5

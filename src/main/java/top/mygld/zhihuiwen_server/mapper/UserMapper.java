@@ -7,8 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    public void insertUser(User user);
+    public int insertUser(User user);
     public List<User> selectUserByUsername(String username);
     public List<User> selectUserByEmail(String email);
     public List<User> selectUserByUsernameAndPassword(String username,String password);
+    public List<User> selectUserById(Long id);
 }

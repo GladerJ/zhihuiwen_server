@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface UserService {
     public void insertUser(User user);
-    public List<User> selectUserByUsername(String username);
-    public List<User> selectUserByEmail(String email);
-    public List<User> selectUserByUsernameAndPassword(String username,String password);
+    public User selectUserByUsername(String username);
+    public User selectUserByEmail(String email);
+    public User selectUserByUsernameAndPassword(String username,String password);
+    public Long getUserIdByUsername(String username);
+    public User getUserById(Long id);
 }

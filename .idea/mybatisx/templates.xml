@@ -5,7 +5,7 @@
       <TemplateContext>
         <option name="generateConfig">
           <GenerateConfig>
-            <option name="annotationType" value="MYBATIS_PLUS3" />
+            <option name="annotationType" value="JPA" />
             <option name="basePackage" value="top.mygld.zhihuiwen_server" />
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
@@ -41,25 +41,24 @@
                 </ModuleInfoGo>
               </list>
             </option>
-            <option name="needToStringHashcodeEquals" value="true" />
-            <option name="needsComment" value="true" />
-            <option name="needsModel" value="true" />
+            <option name="needsModel" value="false" />
             <option name="relativePackage" value="pojo" />
             <option name="superClass" value="" />
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Category" />
-                  <option name="tableName" value="category" />
+                  <option name="className" value="Questionnaireoption" />
+                  <option name="tableName" value="questionnaireoption" />
                 </TableUIInfo>
               </list>
             </option>
-            <option name="templatesName" value="default-empty" />
+            <option name="templatesName" value="default-all" />
+            <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
         <option name="moduleName" value="zhihuiwen_server" />
         <option name="projectPath" value="$PROJECT_DIR$" />
-        <option name="templateName" value="default-empty" />
+        <option name="templateName" value="default-all" />
       </TemplateContext>
     </option>
   </component>
