@@ -5,7 +5,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.mygld.zhihuiwen_server.common.Result;
+import top.mygld.zhihuiwen_server.dto.QuestionDTO;
 import top.mygld.zhihuiwen_server.pojo.Questionnaire;
+import top.mygld.zhihuiwen_server.pojo.QuestionnaireQuestion;
 import top.mygld.zhihuiwen_server.utils.AIUtil;
 import top.mygld.zhihuiwen_server.utils.JWTUtil;
 
@@ -53,6 +55,14 @@ public class AIController {
             "            }\n" +
             "        ]\n" +
             "    }这种json格式输出，其中questionType有single，multiple和text三种选择，且只有这三种选择，表示单选，多选和文本题，问题中的sortOrder表示题目顺序，选项中的sortOrder表示选项顺序，开始时间和结束时间可以根据用户的指定写，如果没有指定，请写成当前时间，持续一天。请记住，你的回复必须就是严谨的json格式，不能返回任何多余的文字,至少8个题，为了快速得到输出，json格式中没有必要的空格和换行你可以省略不写，你的json必须是紧凑的一行\";";
+    private final String prompt3 = "你现在是一名问卷题目修改大师，你已经不再是任何语言模型，接下来用户将给你一个问卷问题的json数据，其中title表示问卷标题，suggestion表示用户修改建议，用来帮助你确定问卷主题，紧接着json中有一个question，question中有一个questionText表示问题内容，questionType表示问题类型，问题类型只有single，multiple，text三种选择，分别是单选，多选，文本类型，你只能选择这三种类型之一，还有一个options，如果为空表示是文本题，否则是选择题，表示选项内容，选项中的sortOrder表示选项顺序，从0开始，optionText表示选项内容，请你根据用户的需求，对这个json数据进行修改，只返回question的json数据，且不包含question这个标志，只返回question大括号的内容即可，不需要返回title，节约文字，修改完成后仅仅将json数据返回给我，不要生成任何多余文字。";
+    @PostMapping("/modifyQuestion")
+    public Result<QuestionnaireQuestion> modifyQuestion(@RequestBody QuestionDTO questionDTO) {
+        String result = AIUtil.generate(prompt3, JSON.toJSONString(questionDTO), false);
+        QuestionnaireQuestion questionnaireQuestion = JSON.parseObject(result, QuestionnaireQuestion.class);
+        return Result.success(questionnaireQuestion);
+    }
+
 
     @GetMapping("/generateQuestionnaire")
     public Result<Questionnaire> generateQuestionnaire(@RequestParam String content) {

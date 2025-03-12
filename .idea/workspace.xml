@@ -4,41 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/06">
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/AIController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/QuestionnaireController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/QuestionnaireMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireOption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireQuestion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/QuestionnaireService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/QuestionnaireServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/AIUtil.java" afterDir="false" />
+    <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/11">
+      <change afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/QuestionDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/JWTConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/CategoryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Questionnaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Questionnaire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/JWTUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/JWTUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/CategoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/CategoryMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/AIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/AIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireQuestion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +238,8 @@
       <workItem from="1741575729995" duration="26432000" />
       <workItem from="1741607729607" duration="781000" />
       <workItem from="1741610982319" duration="14000" />
-      <workItem from="1741690749442" duration="13902000" />
+      <workItem from="1741690749442" duration="14175000" />
+      <workItem from="1741770581794" duration="5031000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -325,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741270280198</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="2025/03/11">
+      <option name="closed" value="true" />
+      <created>1741706681220</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1741706681220</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,6 +328,7 @@
     <MESSAGE value="2025/03/02" />
     <MESSAGE value="2025/03/05" />
     <MESSAGE value="2025/03/06" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/03/06" />
+    <MESSAGE value="2025/03/11" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/03/11" />
   </component>
 </project>
