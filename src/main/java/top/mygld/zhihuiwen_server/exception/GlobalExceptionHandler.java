@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Result<Object>> handleException(Exception e) {
         // 这里可以添加日志记录逻辑
+
         return new ResponseEntity<>(Result.error("服务器内部错误：" + e.getMessage()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }

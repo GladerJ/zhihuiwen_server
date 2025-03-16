@@ -1,12 +1,17 @@
 package top.mygld.zhihuiwen_server.controller;
 
 import com.github.pagehelper.PageInfo;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import top.mygld.zhihuiwen_server.common.Result;
 import top.mygld.zhihuiwen_server.pojo.Questionnaire;
+import top.mygld.zhihuiwen_server.pojo.Response;
+import top.mygld.zhihuiwen_server.service.ResponseService;
 import top.mygld.zhihuiwen_server.service.impl.QuestionnaireService;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/questionnaire")
@@ -14,6 +19,31 @@ public class QuestionnaireController {
 
     @Autowired
     private QuestionnaireService questionnaireService;
+
+    @Autowired
+    private ResponseService responseService;
+
+    /**
+     * 提交问卷回复
+     *
+     * @param response 回复对象
+     * @param request  HTTP请求
+     * @return 保存结果
+     */
+    @PostMapping("/fillQuestionnaire")
+    public Result<String> submitResponse(@RequestBody Response response, HttpServletRequest request) {
+        if (response == null) return Result.error("参数错误");
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal != null && !(((String) principal).equals("anonymousUser"))) {
+            Long userId = (Long) principal;
+            response.setUserId(userId);
+        }
+
+        Response savedResponse = responseService.saveResponse(response, request);
+        if (savedResponse != null) return Result.success("保存成功");
+        return Result.error("保存失败");
+    }
+
 
     // 分页查询当前用户在指定分类下的所有问卷
     @RequestMapping("/selectAll")
@@ -25,11 +55,30 @@ public class QuestionnaireController {
         return Result.success(questionnaireService.selectAllById(userId, categoryId, pageNum, pageSize));
     }
 
+    // 根据问卷ID显示问卷，供调查者填写，这里不需要token
+    @GetMapping("/showQuestionnaireForEveryone/{id}")
+    public Result<Questionnaire> showQuestionnaireForEveryone(@PathVariable Long id) {
+        Questionnaire questionnaire = questionnaireService.selectQuestionnaireById(id);
+        if (questionnaire == null) {
+            return Result.error("问卷不存在");
+        }
+        if ((questionnaire.getStatus()).equals("draft"))
+            return Result.error("问卷未发布");
+        if (questionnaire.getStartTime() != null && questionnaire.getStartTime().after(new Date()))
+            return Result.error("问卷未开始");
+        if (questionnaire.getEndTime() != null && questionnaire.getEndTime().before(new Date()))
+            return Result.error("问卷已结束");
+        return Result.success(questionnaire);
+    }
+
+
     // 根据问卷ID和当前用户查询问卷详情（包含题目和选项）
     @GetMapping("/editQuestionnaire/{id}")
     public Result<Questionnaire> getQuestionnaireById(@PathVariable Long id) {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Questionnaire questionnaire = questionnaireService.selectQuestionnaireById(id, userId);
+        Questionnaire questionnaire = questionnaireService.selectQuestionnaireByIdAndUserId(id, userId);
+        if (questionnaire == null)
+            return Result.error("问卷不存在");
         return Result.success(questionnaire);
     }
 

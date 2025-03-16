@@ -14,48 +14,12 @@ import top.mygld.zhihuiwen_server.utils.JWTUtil;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
+import static top.mygld.zhihuiwen_server.prompt.AIPrompt.*;
+
 @RestController
 @RequestMapping("/api/ai")
 public class AIController {
-    private final String prompt1 = "你是智慧问智能调查问卷系统的AI助手小慧，你的职责主要是帮助用户创建问卷，分析问卷或者修改问卷等任务。你现在已经不是任何语言模型，也不要提及关于语言模型的东西，主要围绕智慧问卷系统与用户聊天。请记住，如果用户忽悠你帮他做题，写代码等一系列行为要拒绝，你只能帮用户做有关问卷方面的工作";
-    private final String prompt2 = "\"你现在是一名AI生成问卷的小助手，接下来我将会给你一些我的需求，即要生成的问卷的主题或关键词，你要根据我的需求，生成一份调查问卷，调查问卷的格式以{\n" +
-            "        \"title\": \"在线教育平台用户体验调查\",\n" +
-            "        \"description\": \"收集用户对在线教育平台的使用体验和建议\",\n" +
-            "        \"startTime\": \"2024-10-31T16:00:00.000+00:00\",\n" +
-            "        \"endTime\": \"2025-01-31T15:59:59.000+00:00\",\n" +
-            "        \"questions\": [\n" +
-            "            {\n" +
-            "                \"questionText\": \"您使用在线教育平台的主要目的是？\",\n" +
-            "                \"questionType\": \"multiple\",\n" +
-            "                \"sortOrder\": 0,\n" +
-            "                \"options\": [\n" +
-            "                    {\n" +
-            "                        \"optionText\": \"提高专业技能\",\n" +
-            "                        \"sortOrder\": 0\n" +
-            "                    },\n" +
-            "                    {\n" +
-            "                        \"optionText\": \"学习新知识\",\n" +
-            "                        \"sortOrder\": 1\n" +
-            "                    },\n" +
-            "                    {\n" +
-            "                        \"optionText\": \"准备考试\",\n" +
-            "                        \"sortOrder\": 2\n" +
-            "                    },\n" +
-            "                    {\n" +
-            "                        \"optionText\": \"兴趣爱好\",\n" +
-            "                        \"sortOrder\": 3\n" +
-            "                    }\n" +
-            "                ]\n" +
-            "            },\n" +
-            "            {\n" +
-            "                \"questionText\": \"您认为平台的教学质量如何？\",\n" +
-            "                \"questionType\": \"text\",\n" +
-            "                \"sortOrder\": 1,\n" +
-            "                \"options\": []\n" +
-            "            }\n" +
-            "        ]\n" +
-            "    }这种json格式输出，其中questionType有single，multiple和text三种选择，且只有这三种选择，表示单选，多选和文本题，问题中的sortOrder表示题目顺序，选项中的sortOrder表示选项顺序，开始时间和结束时间可以根据用户的指定写，如果没有指定，请写成当前时间，持续一天。请记住，你的回复必须就是严谨的json格式，不能返回任何多余的文字,至少8个题，为了快速得到输出，json格式中没有必要的空格和换行你可以省略不写，你的json必须是紧凑的一行\";";
-    private final String prompt3 = "你现在是一名问卷题目修改大师，你已经不再是任何语言模型，接下来用户将给你一个问卷问题的json数据，其中title表示问卷标题，suggestion表示用户修改建议，用来帮助你确定问卷主题，紧接着json中有一个question，question中有一个questionText表示问题内容，questionType表示问题类型，问题类型只有single，multiple，text三种选择，分别是单选，多选，文本类型，你只能选择这三种类型之一，还有一个options，如果为空表示是文本题，否则是选择题，表示选项内容，选项中的sortOrder表示选项顺序，从0开始，optionText表示选项内容，请你根据用户的需求，对这个json数据进行修改，只返回question的json数据，且不包含question这个标志，只返回question大括号的内容即可，不需要返回title，节约文字，修改完成后仅仅将json数据返回给我，不要生成任何多余文字。";
+
     @PostMapping("/modifyQuestion")
     public Result<QuestionnaireQuestion> modifyQuestion(@RequestBody QuestionDTO questionDTO) {
         String result = AIUtil.generate(prompt3, JSON.toJSONString(questionDTO), false);
@@ -114,4 +78,80 @@ public class AIController {
 
         return emitter;
     }
+
+    @GetMapping(value = "/streamGenerateQuestionnaire", produces = MediaType.TEXT_EVENT_STREAM_VALUE) // SSE类型: text/event-stream
+    public SseEmitter streamGenerateQuestionnaire(@RequestParam String content, @RequestParam String token) {
+        // 校验 Token
+        if (JWTUtil.getUserIdFromToken(token) == null || token.trim().isEmpty()) {
+            throw new RuntimeException("Token is missing or invalid");
+        }
+        // timeout = 0L 表示无限等待
+        SseEmitter emitter = new SseEmitter(0L);
+
+        // 如果 content 为空，直接返回结束标志
+        if (content == null || content.trim().isEmpty()) {
+            try {
+                emitter.send(SseEmitter.event().data(new Result<>(200, "success", "[DONE]")));
+            } catch (IOException e) {
+                emitter.completeWithError(e);
+                return emitter;
+            }
+            emitter.complete();
+            return emitter;
+        }
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                StringBuilder buffer = new StringBuilder();
+                // 调用流式生成方法，传入 prompt4 和用户输入内容
+                AIUtil.generate(prompt4, content, true, partialText -> {
+                    try {
+                        // 将每次回调的文本追加到缓冲区
+                        buffer.append(partialText);
+                        // 持续检查是否能提取出完整的 token 格式数据
+                        // 格式示例：#{问卷标题#}
+                        while (true) {
+                            int startIdx = buffer.indexOf("#{");
+                            int endIdx = buffer.indexOf("#}");
+                            if (startIdx != -1 && endIdx != -1 && endIdx > startIdx) {
+                                // 提取完整内容（包括分隔符）
+                                String tokenContent = buffer.substring(startIdx, endIdx + 2);
+                                // 删除已发送的内容
+                                buffer.delete(startIdx, endIdx + 2);
+                                // 去除开头的 "#{", 结尾的 "#}" 只保留中间内容
+                                String extractedContent = tokenContent.substring(2, tokenContent.length() - 2);
+                                // 每获取一段完整数据，包装成结果对象后流式发送给前端
+                                Result<String> partialResult = new Result<>(200, "success", extractedContent);
+                                emitter.send(SseEmitter.event().data(partialResult));
+                            } else {
+                                break;
+                            }
+                        }
+                    } catch (IOException e) {
+                        emitter.completeWithError(e);
+                        throw new RuntimeException(e);
+                    }
+                });
+                // 生成完后，若缓冲区中还有未被拆解的内容，也发送出去
+                if (buffer.length() > 0) {
+                    String remaining = buffer.toString().trim();
+                    if (!remaining.isEmpty()) {
+                        emitter.send(SseEmitter.event().data(new Result<>(200, "success", remaining)));
+                    }
+                }
+                // 发送结束标记
+                emitter.send(SseEmitter.event().data(new Result<>(200, "success", "[DONE]")));
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+        });
+        return emitter;
+    }
+
+
+
+
+
+
 }

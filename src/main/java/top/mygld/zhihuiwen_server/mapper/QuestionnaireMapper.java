@@ -66,7 +66,7 @@ public interface QuestionnaireMapper {
      * @param userId 用户ID
      * @return 问卷实体对象
      */
-    Questionnaire selectQuestionnaireById(@Param("id") Long id, @Param("userId") Long userId);
+    Questionnaire selectQuestionnaireByIdAndUserId(@Param("id") Long id, @Param("userId") Long userId);
 
     /**
      * 根据用户ID和分类ID查询所有问卷
@@ -91,4 +91,6 @@ public interface QuestionnaireMapper {
      * 将问卷过期的改一下
      */
     int updateQuestionnaireStatus();
+
+    Questionnaire selectQuestionnaireById(@Param("id") Long id);
 }
