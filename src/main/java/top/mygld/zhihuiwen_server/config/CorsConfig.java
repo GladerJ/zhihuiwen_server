@@ -13,7 +13,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8080","http://192.168.1.115:8080")  // 允许前端所在的域名
+                        .allowedOrigins("http://localhost:8080","http://192.168.185.243:8080")  // 允许前端所在的域名
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);

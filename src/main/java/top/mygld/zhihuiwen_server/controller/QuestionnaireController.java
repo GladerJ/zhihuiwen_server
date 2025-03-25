@@ -34,10 +34,11 @@ public class QuestionnaireController {
     public Result<String> submitResponse(@RequestBody Response response, HttpServletRequest request) {
         if (response == null) return Result.error("参数错误");
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal != null && !(((String) principal).equals("anonymousUser"))) {
-            Long userId = (Long) principal;
-            response.setUserId(userId);
-        }
+        System.out.println(principal);
+//        if (principal != null && !(((String) principal).equals("anonymousUser"))) {
+//            Long userId = (Long) principal;
+//            response.setUserId(userId);
+//        }
 
         Response savedResponse = responseService.saveResponse(response, request);
         if (savedResponse != null) return Result.success("保存成功");

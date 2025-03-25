@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mygld.zhihuiwen_server.mapper.QuestionnaireMapper">
+
+    <!-- 插入问卷主记录 -->
+    <insert id="insertQuestionnaire" parameterType="top.mygld.zhihuiwen_server.pojo.Questionnaire" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO questionnaire
+        (category_id, user_id, title, description, status, start_time, end_time, created_at, updated_at)
+        VALUES
+            (#{categoryId}, #{userId}, #{title}, #{description}, #{status}, #{startTime}, #{endTime}, NOW(), NOW())
+    </insert>
+
+    <!-- 插入问卷题目 -->
+    <insert id="insertQuestionnaireQuestion" parameterType="top.mygld.zhihuiwen_server.pojo.QuestionnaireQuestion" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO questionnaire_question
+            (questionnaire_id, question_text, question_type, sort_order)
+        VALUES
+            (#{questionnaireId}, #{questionText}, #{questionType}, #{sortOrder})
+    </insert>
+
+    <!-- 插入问卷选项 -->
+    <insert id="insertQuestionnaireOption" parameterType="top.mygld.zhihuiwen_server.pojo.QuestionnaireOption" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO questionnaire_option
+            (question_id, option_text, sort_order)
+        VALUES
+            (#{questionId}, #{optionText}, #{sortOrder})
+    </insert>
+
+    <!-- 更新问卷主记录 -->
+    <update id="updateQuestionnaire" parameterType="top.mygld.zhihuiwen_server.pojo.Questionnaire">
+        UPDATE questionnaire
+        SET category_id = #{categoryId},
+            title = #{title},
+            description = #{description},
+            status = #{status},
+            start_time = #{startTime},
+            end_time = #{endTime},
+            updated_at = NOW()
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+    <update id="updateQuestionnaireStatus">
+        UPDATE questionnaire
+        SET status = 'closed'
+        WHERE status = 'published'
+        AND end_time &lt; NOW()
+    </update>
+
+    <!-- 删除问卷对应的所有选项（级联） -->
+    <delete id="deleteOptionsByQuestionnaireId" parameterType="long">
+        DELETE FROM questionnaire_option
+        WHERE question_id IN (
+            SELECT id FROM questionnaire_question WHERE questionnaire_id = #{questionnaireId}
+        )
+    </delete>
+
+    <!-- 删除问卷对应的所有题目 -->
+    <delete id="deleteQuestionsByQuestionnaireId" parameterType="long">
+        DELETE FROM questionnaire_question WHERE questionnaire_id = #{questionnaireId}
+    </delete>
+
+    <!-- 删除问卷 -->
+    <delete id="deleteQuestionnaire" parameterType="map">
+        DELETE FROM questionnaire
+        WHERE id = #{id} AND user_id = #{userId}
+    </delete>
+
+    <!-- 查询问卷详情（包含级联的题目和选项） -->
+    <select id="selectQuestionnaireByIdAndUserId" parameterType="map" resultMap="QuestionnaireResultMap">
+        SELECT
+            q.id,
+            q.category_id,
+            q.user_id,
+            q.title,
+            q.description,
+            q.status,
+            q.start_time,
+            q.end_time,
+            q.created_at,
+            q.updated_at,
+            qq.id AS question_id,
+            qq.questionnaire_id,
+            qq.question_text,
+            qq.question_type,
+            qq.sort_order AS question_sort_order,
+            qo.id AS option_id,
+            qo.question_id AS option_question_id,
+            qo.option_text,
+            qo.sort_order AS option_sort_order
+        FROM questionnaire q
+                 LEFT JOIN questionnaire_question qq ON q.id = qq.questionnaire_id
+                 LEFT JOIN questionnaire_option qo ON qq.id = qo.question_id
+        WHERE q.id = #{id} AND q.user_id = #{userId}
+    </select>
+
+
+    <!-- 查询当前用户在指定分类下的所有问卷 -->
+    <select id="selectAllById" resultType="top.mygld.zhihuiwen_server.pojo.Questionnaire" parameterType="map">
+        SELECT * FROM questionnaire
+        WHERE category_id = #{categoryId} AND user_id = #{userId} ORDER BY updated_at DESC
+    </select>
+
+    <!-- 根据标题模糊查询问卷 -->
+    <select id="selectQuestionnaireLike" resultType="top.mygld.zhihuiwen_server.pojo.Questionnaire" parameterType="map">
+        SELECT * FROM questionnaire
+        WHERE user_id = #{userId}
+          AND category_id = #{categoryId}
+          AND title LIKE CONCAT('%', #{title}, '%')
+    </select>
+    <select id="selectQuestionnaireById"  parameterType="map" resultMap="QuestionnaireResultMap">
+        SELECT
+            q.id,
+            q.category_id,
+            q.title,
+            q.description,
+            q.status,
+            q.start_time,
+            q.end_time,
+            q.created_at,
+            q.updated_at,
+            qq.id AS question_id,
+            qq.questionnaire_id,
+            qq.question_text,
+            qq.question_type,
+            qq.sort_order AS question_sort_order,
+            qo.id AS option_id,
+            qo.question_id AS option_question_id,
+            qo.option_text,
+            qo.sort_order AS option_sort_order
+        FROM questionnaire q
+                 LEFT JOIN questionnaire_question qq ON q.id = qq.questionnaire_id
+                 LEFT JOIN questionnaire_option qo ON qq.id = qo.question_id
+        WHERE q.id = #{id}
+    </select>
+
+    <!-- 结果映射：问卷包含题目集合，题目又包含选项集合 -->
+    <resultMap id="QuestionnaireResultMap" type="top.mygld.zhihuiwen_server.pojo.Questionnaire">
+        <id property="id" column="id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <collection property="questions" ofType="top.mygld.zhihuiwen_server.pojo.QuestionnaireQuestion">
+            <id property="id" column="question_id"/>
+            <result property="questionnaireId" column="questionnaire_id"/>
+            <result property="questionText" column="question_text"/>
+            <result property="questionType" column="question_type"/>
+            <result property="sortOrder" column="question_sort_order"/>
+            <collection property="options" ofType="top.mygld.zhihuiwen_server.pojo.QuestionnaireOption">
+                <id property="id" column="option_id"/>
+                <result property="questionId" column="option_question_id"/>
+                <result property="optionText" column="option_text"/>
+                <result property="sortOrder" column="option_sort_order"/>
+            </collection>
+        </collection>
+    </resultMap>
+</mapper>
