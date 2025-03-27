@@ -1,16 +1,16 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-import top.mygld.zhihuiwen_server.service.impl.EmailSenderService;
+import top.mygld.zhihuiwen_server.service.EmailSenderService;
 
 import java.util.Random;
 
 import org.springframework.mail.javamail.JavaMailSender;
-import top.mygld.zhihuiwen_server.service.impl.RedisService;
+import top.mygld.zhihuiwen_server.service.RedisService;
 
 @Service
 public class EmailSenderServiceImpl implements EmailSenderService {
@@ -49,7 +49,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     // 发送验证码邮件
     public void sendVerificationCode(String recipientEmail) {
         String code = generateVerificationCode(recipientEmail);
-        String subject = "智汇问注册验证";
+        String subject = "智慧问注册验证";
         String content = "您的验证码是：" + code + "\n请在5分钟内完成验证。";
         sendEmail(recipientEmail, subject, content);
     }

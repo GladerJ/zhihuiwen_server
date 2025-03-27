@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import com.github.pagehelper.PageInfo;
 import top.mygld.zhihuiwen_server.pojo.Questionnaire;
@@ -35,4 +35,8 @@ public interface QuestionnaireService {
      */
     Questionnaire selectQuestionnaireByIdAndUserId(Long id, Long userId);
     Questionnaire selectQuestionnaireById(Long id);
+
+    boolean checkQuestionnaireForUserId(Long userId, Long questionnaireId);
+
+    Questionnaire selectQuestionnaireByIdDetail(Long id,Long userId);
 }

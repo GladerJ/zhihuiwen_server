@@ -17,4 +17,26 @@
         select * from user where id = #{id}
     </select>
 
+    <update id="updateUserProfile">
+        UPDATE user
+        <set>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            updated_at = #{updatedAt}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserPassword">
+        UPDATE user
+        SET password = #{password},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateUserEmail">
+        UPDATE user
+        SET email = #{email},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
 </mapper>

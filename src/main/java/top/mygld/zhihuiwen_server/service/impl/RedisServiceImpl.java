@@ -1,9 +1,9 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import top.mygld.zhihuiwen_server.service.impl.RedisService;
+import top.mygld.zhihuiwen_server.service.RedisService;
 
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;

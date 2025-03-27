@@ -7,4 +7,10 @@
         INSERT INTO response(questionnaire_id, user_id, duration, ip_address, user_agent, submitted_at)
         VALUES (#{questionnaireId}, #{userId}, #{duration}, #{ipAddress}, #{userAgent}, #{submittedAt})
     </insert>
+    <delete id="deleteResponseByQuestionnaireId">
+        DELETE FROM response WHERE questionnaire_id = #{questionnaireId}
+    </delete>
+    <select id="selectAllResponsesByQuestionnaireId" resultType="top.mygld.zhihuiwen_server.pojo.Response">
+        SELECT * FROM response WHERE questionnaire_id = #{questionnaireId}
+    </select>
 </mapper>

@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.model.vo.CaptchaVO;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import top.mygld.zhihuiwen_server.common.Result;
-import top.mygld.zhihuiwen_server.service.impl.EmailSenderService;
-import top.mygld.zhihuiwen_server.service.impl.RedisService;
-import top.mygld.zhihuiwen_server.service.impl.VerifyService;
+import top.mygld.zhihuiwen_server.service.EmailSenderService;
+import top.mygld.zhihuiwen_server.service.RedisService;
+import top.mygld.zhihuiwen_server.service.VerifyService;
 import top.mygld.zhihuiwen_server.utils.ValidCheckUtil;
 
 @Service

@@ -1,17 +1,22 @@
 package top.mygld.zhihuiwen_server.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import top.mygld.zhihuiwen_server.common.Result;
-import top.mygld.zhihuiwen_server.pojo.Questionnaire;
-import top.mygld.zhihuiwen_server.pojo.Response;
+import top.mygld.zhihuiwen_server.pojo.*;
+import top.mygld.zhihuiwen_server.service.ReportService;
 import top.mygld.zhihuiwen_server.service.ResponseService;
-import top.mygld.zhihuiwen_server.service.impl.QuestionnaireService;
+import top.mygld.zhihuiwen_server.service.QuestionnaireService;
 
+import java.security.PrivilegedAction;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/questionnaire")
@@ -23,6 +28,29 @@ public class QuestionnaireController {
     @Autowired
     private ResponseService responseService;
 
+    @Autowired
+    private ReportService reportService;
+    //返回AI生成报告信息
+    @GetMapping("/getReport/{id}")
+    public Result<Report> getReport(@PathVariable Long id){
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,id);
+        if(!flag) return Result.error("无权限");
+        Report report = reportService.selectReportByQuestionnaireId(id);
+        return Result.success(report);
+    }
+
+    // 分页查询问卷填写信息
+    @RequestMapping("/selectAllResponses")
+    public Result<PageInfo<Response>> selectAllResponses(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "6") int pageSize,
+            @RequestParam Long questionnaireId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        return Result.success(responseService.selectAllResponsesByQuestionnaireId(pageNum,pageSize,questionnaireId));
+    }
     /**
      * 提交问卷回复
      *
@@ -120,4 +148,18 @@ public class QuestionnaireController {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return Result.success(questionnaireService.selectQuestionnaireLike(userId, categoryId, content, pageNum, pageSize));
     }
+
+
+    // 根据问卷ID和当前用户查询问卷详情（包含题目和选项）以及每个选项的具体填写情况，供调查者查看
+    @GetMapping("/analyzeQuestionnaire/{id}")
+    public Result<Questionnaire> analyzeQuestionnaireById(@PathVariable Long id) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,id);
+        if(!flag) return Result.error("无权限");
+        Questionnaire questionnaire = questionnaireService.selectQuestionnaireByIdDetail(id,userId);
+        if (questionnaire == null)
+            return Result.error("问卷不存在");
+        return Result.success(questionnaire);
+    }
+
 }

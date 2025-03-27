@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import top.mygld.zhihuiwen_server.common.Result;
 

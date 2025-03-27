@@ -3,14 +3,17 @@ package top.mygld.zhihuiwen_server.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionnaireOption {
+@ToString
+public class Report {
     private Long id;
-    private Long questionId;
-    private String optionText;
-    private short sortOrder;
-    private Long count;
+    private Long questionnaireId;
+    private String content;
+    private Date createdAt;
 }

@@ -1,5 +1,7 @@
 package top.mygld.zhihuiwen_server.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,38 @@ public class ResponseServiceImpl implements ResponseService{
 
         return response;
     }
+
+    @Override
+    public PageInfo<Response> selectAllResponsesByQuestionnaireId(int pageNum, int pageSize, Long questionnaireId) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Response> responses = selectAllResponsesByQuestionnaireId(questionnaireId);
+        return new PageInfo<>(responses);
+    }
+
+    @Override
+    public List<Response> selectAllResponsesByQuestionnaireId(Long id) {
+        List<Response> responses = responseMapper.selectAllResponsesByQuestionnaireId(id);
+        responses.stream().forEach(response -> {
+            List<Answer> answers = answerMapper.selectAllAnswersByResponseId(response.getId());
+            answers.stream().forEach(answer -> {
+                if(answer.getAnswerType().equals("text")){
+                    String content = (String)answer.getAnswerContent();
+                    answer.setAnswerContent(content.substring(1,content.length()-1));
+                }
+            });
+            response.setAnswers(answers);
+        });
+        return responses;
+    }
+
+    @Override
+    public int deleteResponseByQuestionnaireId(Long questionnaireId) {
+        responseMapper.selectAllResponsesByQuestionnaireId(questionnaireId).stream().forEach(response -> {
+            answerMapper.deleteAnswerByResponseId(response.getId());
+        });
+        return responseMapper.deleteResponseByQuestionnaireId(questionnaireId);
+    }
+
     /**
      * 获取客户端真实IP地址
      * @param request HTTP请求

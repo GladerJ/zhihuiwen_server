@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mygld.zhihuiwen_server.mapper.ReportMapper">
+    <insert id="insertReport">
+        INSERT INTO report(questionnaire_id, content, created_at) VALUES (#{questionnaireId}, #{content}, NOW())
+    </insert>
+    <update id="updateReport">
+        UPDATE report SET questionnaire_id = #{questionnaireId}, content = #{content}, created_at = NOW() WHERE id = #{id}
+    </update>
+    <delete id="deleteReportByQuestionnaireId">
+        DELETE FROM report WHERE questionnaire_id = #{questionnaireId}
+    </delete>
+
+    <select id="selectReportById" resultType="top.mygld.zhihuiwen_server.pojo.Report">
+        SELECT * FROM report WHERE id = #{id}
+    </select>
+    <select id="selectReportIdByQuestionnaireId" resultType="java.lang.Integer">
+        SELECT id FROM report WHERE questionnaire_id = #{questionnaireId}
+    </select>
+    <select id="selectReportByQuestionnaireId" resultType="top.mygld.zhihuiwen_server.pojo.Report">
+        SELECT * FROM report WHERE questionnaire_id = #{questionnaireId}
+    </select>
+
+
+</mapper>

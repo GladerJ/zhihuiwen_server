@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import top.mygld.zhihuiwen_server.common.Result;
 import top.mygld.zhihuiwen_server.dto.UserDTO;
 import top.mygld.zhihuiwen_server.pojo.User;
-import top.mygld.zhihuiwen_server.service.impl.CosService;
-import top.mygld.zhihuiwen_server.service.impl.UserService;
-import top.mygld.zhihuiwen_server.service.impl.VerifyService;
+import top.mygld.zhihuiwen_server.service.CosService;
+import top.mygld.zhihuiwen_server.service.UserService;
+import top.mygld.zhihuiwen_server.service.VerifyService;
 import top.mygld.zhihuiwen_server.utils.JWTUtil;
 import top.mygld.zhihuiwen_server.utils.ValidCheckUtil;
 
@@ -33,6 +33,92 @@ public class UserController {
     @Autowired
     CosService cosService;
 
+    @RequestMapping("/update")
+    public Result<String> updateUser(@RequestBody UserDTO userDTO) {
+        // 获取当前登录用户ID
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // 如果上传了新头像
+        String url = null;
+        if (userDTO.getAvatar() != null) {
+            try {
+                url = cosService.uploadFileFromBase64(userDTO.getAvatar(), userId + "_avatar", cosService.AVATAR_LIMIT);
+                if (url == null) {
+                    return Result.error("上传失败,文件大小不能超过2M！");
+                }
+            } catch (IOException e) {
+                return Result.error("上传头像失败");
+            }
+        }
+
+        //删除原来的头像在对象存储中
+        User original = userService.getUserById(userId);
+        cosService.deleteFile(original.getAvatar());
+
+        User user = new User();
+        user.setId(userId);
+        user.setAvatar(url);  // 可能为空，表示不更新头像
+        user.setUpdatedAt(new Date());
+
+        userService.updateUserProfile(user);
+        return Result.success("更新成功");
+    }
+
+    @RequestMapping("/updatePassword")
+    public Result<String> updatePassword(@RequestBody UserDTO userDTO) {
+        // 获取当前登录用户ID
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User existingUser = userService.getUserById(userId);
+        if (existingUser == null) {
+            return Result.error("用户不存在");
+        }
+    // 验证验证码
+        String email = userDTO.getEmail();
+        String code = userDTO.getCaptcha();
+        Result<String> result = verifyService.checkCode(email, code);
+        if (!result.getCode().equals(200)) {
+            return result;
+        }
+        // 更新密码
+        User updateUser = new User();
+        updateUser.setId(userId);
+        updateUser.setPassword(userDTO.getPassword());
+        updateUser.setUpdatedAt(new Date());
+
+        userService.updateUserPassword(updateUser);
+        return Result.success("密码修改成功");
+    }
+
+    @RequestMapping("/updateEmail")
+    public Result<String> updateEmail(@RequestBody UserDTO userDTO) {
+        // 获取当前登录用户ID
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // 验证邮箱验证码
+        String email = userDTO.getEmail();
+        String code = userDTO.getCaptcha();
+
+        // 检查邮箱是否已被注册
+        if (userService.selectUserByEmail(email) != null) {
+            return Result.error("该邮箱已被注册");
+        }
+
+        // 验证验证码
+        Result<String> result = verifyService.checkCode(email, code);
+        if (!result.getCode().equals(200)) {
+            return result;
+        }
+
+        // 更新邮箱
+        User updateUser = new User();
+        updateUser.setId(userId);
+        updateUser.setEmail(email);
+        updateUser.setUpdatedAt(new Date());
+
+        userService.updateUserEmail(updateUser);
+        return Result.success("邮箱更新成功");
+    }
     //注册用户
     @RequestMapping("/register")
     public Result<String> registerUser(@RequestBody UserDTO userDTO) {
@@ -118,7 +204,7 @@ public class UserController {
         }
         User user = userService.selectUserByEmail(email);
         if (user == null) return Result.error("用户不存在");
-        String token = JWTUtil.generateToken(userService.getUserIdByUsername(userDTO.getUsername()));
+        String token = JWTUtil.generateToken(user.getId());
         return Result.success(token);
     }
 
@@ -129,6 +215,7 @@ public class UserController {
         }
         return verifyService.sendCode(email, captchaVerification);
     }
+
 
 
 }

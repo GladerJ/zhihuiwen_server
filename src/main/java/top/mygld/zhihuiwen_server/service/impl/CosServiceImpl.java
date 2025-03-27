@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.model.PutObjectRequest;
@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import top.mygld.zhihuiwen_server.service.impl.CosService;
+import top.mygld.zhihuiwen_server.service.CosService;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Base64;
 
 @Service
@@ -63,4 +64,26 @@ public class CosServiceImpl implements CosService {
         return uploadFile(multipartFile);
     }
 
+    /**
+     * 根据传入的外链 URL 删除对象存储中的图片
+     *
+     * @param fileUrl 外链 URL
+     * @return 删除成功返回 true，否则返回 false
+     */
+    public boolean deleteFile(String fileUrl) {
+        try {
+            // 解析 URL，获取对象 key
+            URL url = new URL(fileUrl);
+            String key = url.getPath();
+            if (key.startsWith("/")) {
+                key = key.substring(1);
+            }
+            // 删除对象
+            cosClient.deleteObject(bucketName, key);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

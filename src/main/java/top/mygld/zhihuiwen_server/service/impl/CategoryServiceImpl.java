@@ -1,14 +1,17 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.mygld.zhihuiwen_server.mapper.CategoryMapper;
+import top.mygld.zhihuiwen_server.mapper.QuestionnaireMapper;
 import top.mygld.zhihuiwen_server.pojo.Category;
+import top.mygld.zhihuiwen_server.pojo.Questionnaire;
 import top.mygld.zhihuiwen_server.pojo.User;
-import top.mygld.zhihuiwen_server.service.impl.CategoryService;
-import top.mygld.zhihuiwen_server.service.impl.UserService;
+import top.mygld.zhihuiwen_server.service.CategoryService;
+import top.mygld.zhihuiwen_server.service.UserService;
+import top.mygld.zhihuiwen_server.service.QuestionnaireService;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    QuestionnaireService questionnaireService;
+
+    @Autowired
+    QuestionnaireMapper questionnaireMapper;
+
     @Override
     public PageInfo<Category> selectQuestionnaireCategoryByUserId(Long userId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -29,10 +38,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void addCategory(Category category) {
+    public void addQuestionnaireCategory(Category category) {
         if (category.getCreatedAt() == null) category.setCreatedAt(new Date());
         if (category.getUpdatedAt() == null) category.setUpdatedAt(new Date());
         if (category.getCatalog() == null) category.setCatalog("questionnaire");
+        categoryMapper.addCategory(category);
+    }
+
+    @Override
+    public void addTemplateCategory(Category category) {
+        if (category.getCreatedAt() == null) category.setCreatedAt(new Date());
+        if (category.getUpdatedAt() == null) category.setUpdatedAt(new Date());
+        if (category.getCatalog() == null) category.setCatalog("template");
         categoryMapper.addCategory(category);
     }
 
@@ -59,6 +76,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Category category) {
+        questionnaireMapper.selectAllById(category.getUserId(), category.getId()).stream().forEach(
+                questionnaire -> {
+                    questionnaireService.deleteQuestionnaire(questionnaire);
+                }
+        );
         categoryMapper.deleteCategory(category);
     }
 
@@ -72,6 +94,43 @@ public class CategoryServiceImpl implements CategoryService {
     public PageInfo<Category> selectQuestionnaireCategoryLike(Long userId,String content, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Category> categories = categoryMapper.selectQuestionnaireCategoryLike(userId,content);
+        return new PageInfo<>(categories);
+    }
+
+    //Template部分
+    @Override
+    public PageInfo<Category> selectTemplateCategoryByUserId(Long userId, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Category> categories = categoryMapper.selectTemplateCategoryByUserId(userId);
+        return new PageInfo<>(categories);
+    }
+
+
+    @Override
+    public PageInfo<Category> selectTemplateCategoryByUsername(String username, int pageNum, int pageSize) {
+        return selectTemplateCategoryByUserId(userService.getUserIdByUsername(username), pageNum, pageSize);
+    }
+
+    @Override
+    public boolean checkTemplateCategoryNameForCreate(Long userId, String name) {
+        if (categoryMapper.selectTemplateCategoryByUserIdAndName(userId, name).size() > 0)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public boolean checkTemplateCategoryNameForUpdate(Long userId, String name, Long categoryId) {
+        List<Category> categories = categoryMapper.selectTemplateCategoryByUserIdAndName(userId, name);
+        if (categories.size() == 0) return true;
+        if (categories.get(0).getId() == categoryId) return true;
+        else return false;
+    }
+
+    @Override
+    public PageInfo<Category> selectTemplateCategoryLike(Long userId,String content, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Category> categories = categoryMapper.selectTemplateCategoryLike(userId,content);
         return new PageInfo<>(categories);
     }
 

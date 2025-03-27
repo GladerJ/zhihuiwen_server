@@ -1,13 +1,16 @@
 package top.mygld.zhihuiwen_server.pojo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionnaireOption {
+@ToString
+public class TemplateOption {
     private Long id;
     private Long questionId;
     private String optionText;

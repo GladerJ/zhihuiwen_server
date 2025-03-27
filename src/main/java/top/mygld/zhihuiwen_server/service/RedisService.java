@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;

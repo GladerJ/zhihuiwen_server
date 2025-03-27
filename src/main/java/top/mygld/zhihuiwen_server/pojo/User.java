@@ -3,12 +3,11 @@ package top.mygld.zhihuiwen_server.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private Long id;
     private String avatar;

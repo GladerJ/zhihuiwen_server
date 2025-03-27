@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import top.mygld.zhihuiwen_server.pojo.User;
 
@@ -11,4 +11,8 @@ public interface UserService {
     public User selectUserByUsernameAndPassword(String username,String password);
     public Long getUserIdByUsername(String username);
     public User getUserById(Long id);
+    public void updateUserProfile(User user);
+    public void updateUserPassword(User user);
+    public void updateUserEmail(User user);
+
 }

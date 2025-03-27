@@ -34,5 +34,21 @@
         WHERE catalog = 'questionnaire'
           AND name LIKE CONCAT('%', #{param2}, '%') AND user_id = #{param1} ORDER BY updated_at DESC
     </select>
+    <select id="selectTemplateCategoryByUserId" resultType="top.mygld.zhihuiwen_server.pojo.Category">
+        SELECT * FROM category
+        WHERE user_id = #{userId}
+          AND catalog = 'template' ORDER BY updated_at DESC
+    </select>
+    <select id="selectTemplateCategoryByUserIdAndName" resultType="top.mygld.zhihuiwen_server.pojo.Category">
+        SELECT * FROM category
+        WHERE user_id = #{param1}
+          AND catalog = 'template'
+          AND name = #{param2}
+    </select>
+    <select id="selectTemplateCategoryLike" resultType="top.mygld.zhihuiwen_server.pojo.Category">
+        SELECT * FROM category
+        WHERE catalog = 'template'
+          AND name LIKE CONCAT('%', #{param2}, '%') AND user_id = #{param1} ORDER BY updated_at DESC
+    </select>
 
 </mapper>

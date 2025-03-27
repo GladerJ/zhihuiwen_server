@@ -14,6 +14,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 @Component
@@ -95,11 +97,19 @@ public class AIUtil {
             StringBuilder finalResult = new StringBuilder();
 
             if (stream) {
+                // 添加中断检查机制
+                AtomicBoolean cancelled = new AtomicBoolean(false);
+
                 // 流式处理 - 使用InputStream直接处理
                 HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
+                        // 检查是否被请求取消
+                        if (Thread.currentThread().isInterrupted() || cancelled.get()) {
+                            break;
+                        }
+
                         if (line.startsWith("data: ")) {
                             String jsonStr = line.substring(6).trim();
                             if ("[DONE]".equals(jsonStr)) {
@@ -116,12 +126,28 @@ public class AIUtil {
                                         finalResult.append(text);
                                         // 实时调用回调
                                         if (streamCallback != null) {
-                                            streamCallback.accept(text);
+                                            try {
+                                                streamCallback.accept(text);
+                                            } catch (RuntimeException e) {
+                                                // 如果回调抛出特定异常，标记为已取消并退出
+                                                if (e instanceof CompletionException &&
+                                                        e.getCause() instanceof RuntimeException &&
+                                                        "GENERATION_CANCELLED".equals(e.getCause().getMessage())) {
+                                                    cancelled.set(true);
+                                                    break;
+                                                }
+                                                throw e; // 重新抛出其他异常
+                                            }
                                         }
                                     }
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                // 处理异常但不重复打印已知的取消异常
+                                if (!(e instanceof CompletionException &&
+                                        e.getCause() instanceof RuntimeException &&
+                                        "GENERATION_CANCELLED".equals(e.getCause().getMessage()))) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
@@ -142,7 +168,12 @@ public class AIUtil {
             return finalResult.toString();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // 处理异常但不重复打印已知的取消异常
+            if (!(e instanceof CompletionException &&
+                    e.getCause() instanceof RuntimeException &&
+                    "GENERATION_CANCELLED".equals(e.getCause().getMessage()))) {
+                e.printStackTrace();
+            }
             return "Error generating response: " + e.getMessage();
         }
     }

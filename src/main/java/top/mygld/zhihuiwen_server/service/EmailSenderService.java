@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 public interface EmailSenderService {
     public String generateVerificationCode(String recipientEmail);

@@ -168,7 +168,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>top.mygld.zhihuiwen_server.ZhihuiwenServerApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>

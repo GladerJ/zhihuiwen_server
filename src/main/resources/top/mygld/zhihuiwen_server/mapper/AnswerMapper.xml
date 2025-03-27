@@ -9,4 +9,10 @@
         VALUES
         (#{responseId}, #{questionId}, #{answerType}, #{answerContent}, NOW())
     </insert>
+    <delete id="deleteAnswerByResponseId">
+        DELETE FROM answer WHERE response_id = #{responseId}
+    </delete>
+    <select id="selectAllAnswersByResponseId" resultType="top.mygld.zhihuiwen_server.pojo.Answer">
+        SELECT * FROM answer WHERE response_id = #{responseId}
+    </select>
 </mapper>

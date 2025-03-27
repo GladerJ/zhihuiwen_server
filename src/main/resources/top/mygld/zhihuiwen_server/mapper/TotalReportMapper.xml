@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.mygld.zhihuiwen_server.mapper.TotalReportMapper">
+
+    <insert id="insertTotalReport">
+        INSERT INTO total_report(user_id, content)
+        VALUES (#{userId}, #{content})
+    </insert>
+    <update id="updateTotalReport">
+        UPDATE total_report
+        SET content = #{content}
+        WHERE id = #{id} and user_id = #{userId}
+    </update>
+    <delete id="deleteTotalReportByUserId">
+        DELETE FROM total_report WHERE user_id = #{userId}
+    </delete>
+    <select id="selectTotalReportByUserId" resultType="top.mygld.zhihuiwen_server.pojo.TotalReport">
+        SELECT * FROM total_report WHERE user_id = #{userId}
+    </select>
+
+</mapper>

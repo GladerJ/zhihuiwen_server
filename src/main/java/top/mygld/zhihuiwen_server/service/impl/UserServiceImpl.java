@@ -1,10 +1,10 @@
-package top.mygld.zhihuiwen_server.service.impl.impl;
+package top.mygld.zhihuiwen_server.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.mygld.zhihuiwen_server.mapper.UserMapper;
 import top.mygld.zhihuiwen_server.pojo.User;
-import top.mygld.zhihuiwen_server.service.impl.UserService;
+import top.mygld.zhihuiwen_server.service.UserService;
 
 import java.util.Date;
 import java.util.List;
@@ -48,4 +48,18 @@ public class UserServiceImpl implements UserService {
         return users.size() > 0 ? users.get(0) : null;
     }
 
+    @Override
+    public void updateUserProfile(User user) {
+        userMapper.updateUserProfile(user);
+    }
+
+    @Override
+    public void updateUserPassword(User user) {
+        userMapper.updateUserPassword(user);
+    }
+
+    @Override
+    public void updateUserEmail(User user) {
+        userMapper.updateUserEmail(user);
+    }
 }

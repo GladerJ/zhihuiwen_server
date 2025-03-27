@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,4 +11,5 @@ public interface CosService {
     public static final long AVATAR_LIMIT = 1024 * 1024 * 2;
     public String uploadFile(MultipartFile file) throws IOException;
     public String uploadFileFromBase64(String base64Data, String fileName,long limit) throws IOException;
+    public boolean deleteFile(String fileUrl);
 }

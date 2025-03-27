@@ -1,5 +1,7 @@
 server:
   port: 8081
+  servlet:
+    context-path: /api
 
 
 spring:
@@ -56,7 +58,7 @@ aj:
 #    pic-click: classpath:images/pic-click
     cache-type: local
 
-    water-mark: "智汇问"
+    water-mark: "智慧问"
     slip-offset: 5
     aes-status: true
     interference-options: 2
@@ -93,10 +95,6 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
-logging:
-  level:
-    com.example.mapper: debug
-
 # 开启驼峰映射
 mybatis:
   configuration:
@@ -110,4 +108,3 @@ ai:
   url: https://api.siliconflow.cn/v1/chat/completions
   key: sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx
   model: Qwen/Qwen2.5-Coder-32B-Instruct
-

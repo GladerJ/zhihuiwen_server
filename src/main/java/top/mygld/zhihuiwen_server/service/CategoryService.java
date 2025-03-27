@@ -1,4 +1,4 @@
-package top.mygld.zhihuiwen_server.service.impl;
+package top.mygld.zhihuiwen_server.service;
 
 import com.github.pagehelper.PageInfo;
 import top.mygld.zhihuiwen_server.pojo.Category;
@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface CategoryService {
     public PageInfo<Category> selectQuestionnaireCategoryByUserId(Long userId,int pageNum, int pageSize);
-    public void addCategory(Category category);
+    public void addQuestionnaireCategory(Category category);
+    public void addTemplateCategory(Category category);
     public PageInfo<Category> selectQuestionnaireCategoryByUsername(String username,int pageNum, int pageSize);
     //判断该用户是否已创建相同命名分类
     public boolean checkQuestionnaireCategoryNameForCreate(Long userId,String name);
@@ -21,4 +22,11 @@ public interface CategoryService {
     //定义模糊搜索
     public PageInfo<Category> selectQuestionnaireCategoryLike(Long userId,String content,int pageNum, int pageSize);
 
+
+
+    public PageInfo<Category> selectTemplateCategoryByUserId(Long userId,int pageNum, int pageSize);
+    public PageInfo<Category> selectTemplateCategoryByUsername(String username,int pageNum, int pageSize);
+    public boolean checkTemplateCategoryNameForCreate(Long userId,String name);
+    public boolean checkTemplateCategoryNameForUpdate(Long userId,String name,Long categoryId);
+    public PageInfo<Category> selectTemplateCategoryLike(Long userId,String content,int pageNum, int pageSize);
 }
