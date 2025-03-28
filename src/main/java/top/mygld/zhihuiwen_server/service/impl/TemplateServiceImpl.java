@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.mygld.zhihuiwen_server.mapper.TemplateMapper;
-import top.mygld.zhihuiwen_server.pojo.Template;
-import top.mygld.zhihuiwen_server.pojo.TemplateQuestion;
-import top.mygld.zhihuiwen_server.pojo.TemplateOption;
-import top.mygld.zhihuiwen_server.pojo.Response;
+import top.mygld.zhihuiwen_server.pojo.*;
 import top.mygld.zhihuiwen_server.service.ReportService;
 import top.mygld.zhihuiwen_server.service.ResponseService;
 import top.mygld.zhihuiwen_server.service.TemplateService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +105,17 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Template selectPublicTemplateById(Long id) {
         return templateMapper.selectPublicTemplateById(id);
+    }
+
+    @Override
+    public List<Template> selectAllTemplatesByUserId(Long userId) {
+        List<Template> questionnaires = templateMapper.selectAllTemplatesByUserId(userId);
+        List<Template> results = new ArrayList<>();
+        questionnaires.stream().forEach(template -> {
+            template = selectTemplateById(template.getId());
+            results.add(template);
+        });
+        return results;
     }
 
 }

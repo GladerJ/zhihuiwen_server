@@ -1,16 +1,16 @@
 package top.mygld.zhihuiwen_server.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NonNull
+@NoArgsConstructor
 @ToString
 public class TotalReport {
     private Long id;
     private Long userId;
     private String content;
+    private Date createdAt;
 }

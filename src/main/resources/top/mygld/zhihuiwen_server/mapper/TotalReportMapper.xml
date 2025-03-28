@@ -4,13 +4,11 @@
 <mapper namespace="top.mygld.zhihuiwen_server.mapper.TotalReportMapper">
 
     <insert id="insertTotalReport">
-        INSERT INTO total_report(user_id, content)
-        VALUES (#{userId}, #{content})
+        INSERT INTO total_report(user_id, content, created_at)
+        VALUES (#{userId}, #{content},NOW())
     </insert>
     <update id="updateTotalReport">
-        UPDATE total_report
-        SET content = #{content}
-        WHERE id = #{id} and user_id = #{userId}
+        UPDATE total_report SET content = #{content}, created_at = NOW() WHERE user_id = #{userId}
     </update>
     <delete id="deleteTotalReportByUserId">
         DELETE FROM total_report WHERE user_id = #{userId}

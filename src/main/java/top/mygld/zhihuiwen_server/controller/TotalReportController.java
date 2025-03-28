@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.mygld.zhihuiwen_server.common.Result;
 import top.mygld.zhihuiwen_server.pojo.TotalReport;
 import top.mygld.zhihuiwen_server.service.ReportService;
 import top.mygld.zhihuiwen_server.service.TotalReportService;
@@ -15,26 +16,29 @@ public class TotalReportController {
     @Autowired
     private TotalReportService totalReportService;
     @RequestMapping("/getTotalReport")
-    public TotalReport getTotalReport() {
+    public Result<TotalReport> getTotalReport() {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return totalReportService.selectTotalReportByUserId(userId);
+        return Result.success(totalReportService.selectTotalReportByUserId(userId));
     }
     @RequestMapping("/updateTotalReport")
-    public int updateTotalReport(@RequestBody TotalReport totalReport) {
+    public Result<String> updateTotalReport(@RequestBody TotalReport totalReport) {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         totalReport.setUserId(userId);
-        return totalReportService.updateTotalReport(totalReport);
+        totalReportService.updateTotalReport(totalReport);
+        return Result.success("更新成功");
     }
     @RequestMapping("/insertTotalReport")
-    public int insertTotalReport(@RequestBody TotalReport totalReport) {
+    public Result<String> insertTotalReport(@RequestBody TotalReport totalReport) {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         totalReport.setUserId(userId);
-        return totalReportService.insertTotalReport(totalReport);
+        totalReportService.insertTotalReport(totalReport);
+        return Result.success("插入成功");
     }
 
     @RequestMapping("/deleteTotalReport")
-    public int deleteTotalReport() {
+    public Result<String> deleteTotalReport() {
         Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return totalReportService.deleteTotalReportByUserId(userId);
+        totalReportService.deleteTotalReportByUserId(userId);
+        return Result.success("删除成功");
     }
 }

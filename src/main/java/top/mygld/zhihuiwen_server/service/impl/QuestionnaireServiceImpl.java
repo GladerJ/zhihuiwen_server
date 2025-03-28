@@ -15,6 +15,7 @@ import top.mygld.zhihuiwen_server.service.ReportService;
 import top.mygld.zhihuiwen_server.service.ResponseService;
 import top.mygld.zhihuiwen_server.service.QuestionnaireService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,5 +145,16 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
         });
         questionnaire.setQuestions(questions);
         return questionnaire;
+    }
+
+    @Override
+    public List<Questionnaire> selectAllQuestionnairesByUserId(Long userId) {
+        List<Questionnaire> questionnaires = questionnaireMapper.selectAllQuestionnairesByUserId(userId);
+        List<Questionnaire> results = new ArrayList<>();
+        questionnaires.stream().forEach(questionnaire -> {
+            questionnaire = selectQuestionnaireByIdDetail(questionnaire.getId(),userId);
+            results.add(questionnaire);
+        });
+        return results;
     }
 }

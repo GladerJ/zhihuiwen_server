@@ -94,4 +94,6 @@ public interface QuestionnaireMapper {
 
     Questionnaire selectQuestionnaireById(@Param("id") Long id);
 
+    List<Questionnaire> selectAllQuestionnairesByUserId(@Param("userId") Long userId);
+
 }

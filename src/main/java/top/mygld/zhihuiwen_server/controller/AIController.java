@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.mygld.zhihuiwen_server.common.Result;
 import top.mygld.zhihuiwen_server.dto.QuestionDTO;
-import top.mygld.zhihuiwen_server.pojo.Questionnaire;
-import top.mygld.zhihuiwen_server.pojo.QuestionnaireQuestion;
-import top.mygld.zhihuiwen_server.pojo.Report;
-import top.mygld.zhihuiwen_server.pojo.Response;
-import top.mygld.zhihuiwen_server.service.ReportService;
-import top.mygld.zhihuiwen_server.service.ResponseService;
-import top.mygld.zhihuiwen_server.service.QuestionnaireService;
+import top.mygld.zhihuiwen_server.mapper.QuestionnaireMapper;
+import top.mygld.zhihuiwen_server.pojo.*;
+import top.mygld.zhihuiwen_server.service.*;
+import top.mygld.zhihuiwen_server.service.impl.UserServiceImpl;
 import top.mygld.zhihuiwen_server.utils.AIUtil;
 import top.mygld.zhihuiwen_server.utils.JWTUtil;
 
@@ -39,6 +36,12 @@ public class AIController {
 
     @Autowired
     private ReportService reportService;
+
+    @Autowired
+    private TemplateService templateService;
+
+    @Autowired
+    private TotalReportService totalReportService;
 
     // 存储活跃的 SseEmitter 实例，用于管理和取消生成任务
     private final ConcurrentHashMap<Long, SseEmitter> activeEmitters = new ConcurrentHashMap<>();
@@ -437,4 +440,182 @@ public class AIController {
             e.printStackTrace();
         }
     }
+
+
+
+    // 生成用户个人总结
+    @GetMapping(value = "/streamTotalReport", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter streamTotalReport(@RequestParam String token) {
+        // 简单校验 Token
+        Long userId = JWTUtil.getUserIdFromToken(token);
+        if (userId == null || token.trim().isEmpty()) {
+            throw new RuntimeException("Token is missing or invalid");
+        }
+
+        // 检查是否在5分钟内重复生成报告
+        TotalReport totalReport = totalReportService.selectTotalReportByUserId(userId);
+        if (totalReport != null && totalReport.getCreatedAt() != null) {
+            long now = System.currentTimeMillis();
+            long createdTime = totalReport.getCreatedAt().getTime();
+            long diff = now - createdTime;
+            if (diff >= 0 && diff <= 5 * 60 * 1000) {
+                // 如果5分钟内重复生成，创建一个短超时的SseEmitter并发送错误信息
+                SseEmitter errorEmitter = new SseEmitter(0L);
+                try {
+                    Result<String> errorResult = new Result<>(403, "由于服务器压力问题，5分钟内不可重复生成！", null);
+                    errorEmitter.send(SseEmitter.event().data(errorResult));
+                } catch (IOException e) {
+                    errorEmitter.completeWithError(e);
+                    return errorEmitter;
+                }
+                errorEmitter.complete();
+                return errorEmitter;
+            }
+        }
+
+        // 正常处理：创建SseEmitter并保存到活跃映射中
+        SseEmitter emitter = new SseEmitter(180000L);
+        activeEmitters.put(userId, emitter);
+
+        // 设置回调，确保完成、超时和错误时清理资源
+        emitter.onCompletion(() -> {
+            activeEmitters.remove(userId);
+            System.out.println("用户ID：" + userId + " SSE连接完成");
+        });
+        emitter.onTimeout(() -> {
+            activeEmitters.remove(userId);
+            System.out.println("SSE连接超时，用户ID: " + userId);
+        });
+        emitter.onError(e -> {
+            activeEmitters.remove(userId);
+            if (isClientAbortException(e)) {
+                System.out.println("客户端断开连接，用户ID: " + userId);
+            } else {
+                System.out.println("SSE连接错误，用户ID: " + userId + ", 错误: " + e.getMessage());
+            }
+        });
+
+        // 异步执行AI生成逻辑
+        CompletableFuture.runAsync(() -> {
+            StringBuilder fullContent = new StringBuilder();
+            // 使用数组来保存可变布尔标记，表示是否取消生成
+            boolean[] cancelled = new boolean[1];
+            try {
+                // 获取问卷和模板数据
+                List<Questionnaire> questionnaires = questionnaireService.selectAllQuestionnairesByUserId(userId);
+                List<Template> templates = templateService.selectAllTemplatesByUserId(userId);
+                String content = questionnaires.toString() + "\n" + templates.toString();
+
+                try {
+                    // 调用AI生成方法，stream式传输结果，每段文本通过回调返回
+                    AIUtil.generate(prompt6, content, true, partialText -> {
+                        // 如果已经取消或emitter不在活跃映射中，则停止回调
+                        if (cancelled[0] || !activeEmitters.containsKey(userId)) {
+                            return;
+                        }
+                        try {
+                            // 累积生成内容，并实时发送给前端
+                            fullContent.append(partialText);
+                            Result<String> partialResult = new Result<>(200, "success", partialText);
+                            emitter.send(SseEmitter.event().data(partialResult));
+                        } catch (Exception e) {
+                            // 发送数据出错，则标记取消，移除该emitter，并尝试保存已生成内容
+                            cancelled[0] = true;
+                            activeEmitters.remove(userId);
+                            if (isClientAbortException(e)) {
+                                System.out.println("客户端断开连接，停止生成，用户ID: " + userId);
+                            } else {
+                                System.out.println("发送数据时出错，停止生成，用户ID: " + userId + ", 错误: " + e.getMessage());
+                            }
+                            if (fullContent.length() > 0) {
+                                try {
+                                    saveTotalReportToDatabase(userId, fullContent.toString());
+                                } catch (Exception ex) {
+                                    System.out.println("保存已生成内容时出错: " + ex.getMessage());
+                                }
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    System.out.println("AI生成过程中发生异常，用户ID: " + userId + ", 错误: " + e.getMessage());
+                    if (fullContent.length() > 0) {
+                        try {
+                            saveTotalReportToDatabase(userId, fullContent.toString());
+                        } catch (Exception saveEx) {
+                            System.out.println("保存已生成内容时出错: " + saveEx.getMessage());
+                        }
+                    }
+                    cancelled[0] = true;
+                }
+
+                // 如果生成未被取消且emitter仍然活跃，则完成后续处理
+                if (!cancelled[0] && activeEmitters.containsKey(userId)) {
+                    try {
+                        saveTotalReportToDatabase(userId, fullContent.toString());
+                        Result<String> doneResult = new Result<>(200, "success", "[DONE]");
+                        emitter.send(SseEmitter.event().data(doneResult));
+                        emitter.complete();
+                    } catch (Exception e) {
+                        if (isClientAbortException(e)) {
+                            System.out.println("发送完成标记时客户端已断开连接，用户ID: " + userId);
+                        } else {
+                            System.out.println("发送完成标记时出错，用户ID: " + userId + ", 错误: " + e.getMessage());
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                // 捕获整个处理过程中的异常
+                System.out.println("处理请求过程中发生异常，用户ID: " + userId + ", 错误: " + e.getMessage());
+                if (activeEmitters.containsKey(userId) && !cancelled[0]) {
+                    try {
+                        Result<String> errorResult = new Result<>(500, "服务器错误: " + e.getMessage(), null);
+                        emitter.send(SseEmitter.event().data(errorResult));
+                        emitter.complete();
+                    } catch (Exception sendEx) {
+                        // 忽略发送错误时的异常
+                    }
+                }
+                if (fullContent.length() > 0) {
+                    try {
+                        saveTotalReportToDatabase(userId, fullContent.toString());
+                    } catch (Exception saveEx) {
+                        System.out.println("保存已生成内容时出错: " + saveEx.getMessage());
+                    }
+                }
+            } finally {
+                // 最后确保清除该用户对应的活跃emitter
+                activeEmitters.remove(userId);
+            }
+        });
+
+        return emitter;
+    }
+
+
+    private void saveTotalReportToDatabase(Long userId, String content) {
+        try {
+            // 创建报告对象
+            TotalReport totalReport = new TotalReport();
+            totalReport.setUserId(userId);
+            totalReport.setContent(content);
+            totalReport.setCreatedAt(new Date());
+
+            // 检查是否已存在此问卷的报告
+            TotalReport existingReport = totalReportService.selectTotalReportByUserId(userId);
+
+            if (existingReport != null) {
+                // 已存在，更新报告
+                totalReport.setId(existingReport.getId());
+                totalReportService.updateTotalReport(totalReport);
+            } else {
+                // 不存在，插入新报告
+                totalReportService.insertTotalReport(totalReport);
+            }
+        } catch (Exception e) {
+            // 记录错误但不抛出异常
+            e.printStackTrace();
+        }
+    }
+
+
 }

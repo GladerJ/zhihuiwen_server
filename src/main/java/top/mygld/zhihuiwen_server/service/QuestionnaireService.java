@@ -3,6 +3,8 @@ package top.mygld.zhihuiwen_server.service;
 import com.github.pagehelper.PageInfo;
 import top.mygld.zhihuiwen_server.pojo.Questionnaire;
 
+import java.util.List;
+
 public interface QuestionnaireService {
 
     /**
@@ -39,4 +41,6 @@ public interface QuestionnaireService {
     boolean checkQuestionnaireForUserId(Long userId, Long questionnaireId);
 
     Questionnaire selectQuestionnaireByIdDetail(Long id,Long userId);
+
+    List<Questionnaire> selectAllQuestionnairesByUserId(Long userId);
 }

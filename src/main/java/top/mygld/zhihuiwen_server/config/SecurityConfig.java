@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/questionnaire/fillQuestionnaire").permitAll()
                         .requestMatchers("/user/loginByPassword", "/captcha/get", "/captcha/check", "/user/verify/sendForRegister",
                                 "/user/verify/sendForLogin", "/user/loginByEmail","/ai/streamChat","/ai/streamGenerateQuestionnaire"
-                        ,"/questionnaire/showQuestionnaireForEveryone/{id}","/ai/streamAnalyze").permitAll()
+                        ,"/questionnaire/showQuestionnaireForEveryone/{id}","/ai/streamAnalyze","/ai/streamTotalReport").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

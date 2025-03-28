@@ -27,4 +27,6 @@ public interface TemplateMapper {
     List<Template> selectAllPublicTemplates();
     List<Template> selectAllPublicTemplatesLike(String content);
     Template selectPublicTemplateById(@Param("id") Long id);
+
+    List<Template> selectAllTemplatesByUserId(@Param("userId") Long userId);
 }

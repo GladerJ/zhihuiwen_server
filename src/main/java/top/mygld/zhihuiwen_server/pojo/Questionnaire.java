@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +20,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Questionnaire {
+@ToString
+public class Questionnaire{
 
     /**
     * 问卷唯一标识
@@ -63,5 +66,6 @@ public class Questionnaire {
     */
     private Date updatedAt;
     private List<QuestionnaireQuestion> questions;
+
 
 }

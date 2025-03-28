@@ -132,6 +132,9 @@
                  LEFT JOIN questionnaire_option qo ON qq.id = qo.question_id
         WHERE q.id = #{id}
     </select>
+    <select id="selectAllQuestionnairesByUserId" resultType="top.mygld.zhihuiwen_server.pojo.Questionnaire">
+        SELECT * FROM questionnaire WHERE user_id = #{userId}
+    </select>
 
     <!-- 结果映射：问卷包含题目集合，题目又包含选项集合 -->
     <resultMap id="QuestionnaireResultMap" type="top.mygld.zhihuiwen_server.pojo.Questionnaire">

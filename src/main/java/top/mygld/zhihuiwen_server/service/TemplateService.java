@@ -1,7 +1,10 @@
 package top.mygld.zhihuiwen_server.service;
 
 import com.github.pagehelper.PageInfo;
+import top.mygld.zhihuiwen_server.pojo.Questionnaire;
 import top.mygld.zhihuiwen_server.pojo.Template;
+
+import java.util.List;
 
 public interface TemplateService {
     PageInfo<Template> selectAllById(Long userId, Long categoryId, int pageNum, int pageSize);
@@ -16,4 +19,6 @@ public interface TemplateService {
     PageInfo<Template> selectAllPublicTemplates(int pageNum, int pageSize);
     PageInfo<Template> selectAllPublicTemplatesLike(String content, int pageNum, int pageSize);
     Template selectPublicTemplateById(Long id);
+
+    List<Template> selectAllTemplatesByUserId(Long userId);
 }
