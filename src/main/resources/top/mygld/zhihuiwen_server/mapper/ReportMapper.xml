@@ -21,6 +21,15 @@
     <select id="selectReportByQuestionnaireId" resultType="top.mygld.zhihuiwen_server.pojo.Report">
         SELECT * FROM report WHERE questionnaire_id = #{questionnaireId}
     </select>
+    <select id="selectSummaryByQuestionnaireId" resultType="java.lang.String">
+        SELECT
+            SUBSTRING(content, LOCATE('## 总结', content)) AS summary
+        FROM
+            report
+        WHERE
+            questionnaire_id = #{questionnaireId}
+          AND content LIKE '%## 总结%'
+    </select>
 
 
 </mapper>

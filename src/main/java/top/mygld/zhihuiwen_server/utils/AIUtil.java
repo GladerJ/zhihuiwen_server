@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 public class AIUtil {
     private static String key;
     private static String url;
-    private static String model;
+//    private static String model;
 
     @Value("${ai.key}")
     public void setKey(String key) {
@@ -34,16 +34,16 @@ public class AIUtil {
         AIUtil.url = url;
     }
 
-    @Value("${ai.model}")
-    public void setModel(String model) {
-        AIUtil.model = model;
-    }
+//    @Value("${ai.model}")
+//    public void setModel(String model) {
+//        AIUtil.model = model;
+//    }
 
     /**
      * 生成AI响应（支持流式输出，不带回调）
      */
-    public static String generate(String prompt, String content, boolean stream) {
-        return generate(prompt, content, stream, null);
+    public static String generate(String prompt, String content,String model,boolean stream) {
+        return generate(prompt, content, stream,model, null);
     }
 
     /**
@@ -58,18 +58,19 @@ public class AIUtil {
     public static String generate(String prompt,
                                   String content,
                                   boolean stream,
+                                  String model,
                                   Consumer<String> streamCallback) {
         try {
             HttpClient client = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
                     .connectTimeout(Duration.ofSeconds(30))
                     .build();
-
             JSONObject requestBody = new JSONObject();
-            requestBody.put("model", model);
-
+            if(model == null){
+                requestBody.put("model", "Qwen/Qwen2.5-Coder-32B-Instruct");
+            }
+            else requestBody.put("model", model);
             JSONArray messages = new JSONArray();
-
             // 创建系统消息
             if (prompt != null && !prompt.isEmpty()) {
                 JSONObject systemMessage = new JSONObject();
@@ -77,29 +78,23 @@ public class AIUtil {
                 systemMessage.put("content", prompt);
                 messages.add(systemMessage);
             }
-
             // 创建用户消息
             JSONObject userMessage = new JSONObject();
             userMessage.put("role", "user");
             userMessage.put("content", content);
             messages.add(userMessage);
-
             requestBody.put("messages", messages);
             requestBody.put("stream", stream);
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
                     .header("Authorization", "Bearer " + key)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody.toString()))
                     .build();
-
             StringBuilder finalResult = new StringBuilder();
-
             if (stream) {
                 // 添加中断检查机制
                 AtomicBoolean cancelled = new AtomicBoolean(false);
-
                 // 流式处理 - 使用InputStream直接处理
                 HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body()))) {
@@ -179,14 +174,14 @@ public class AIUtil {
     }
 
     public static void main(String[] args) {
-        key = "sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx";
-        url = "https://api.siliconflow.cn/v1/chat/completions";
-        model = "Qwen/QwQ-32B";
-
-        // 测试调用
-        String systemPrompt = "你是一个智能助手，请用简洁的语言回答问题";
-        String userContent = "什么是Python？";
-        System.out.println("开始流式输出:");
-        AIUtil.generate(systemPrompt, userContent, true, System.out::println);
+//        key = "sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx";
+//        url = "https://api.siliconflow.cn/v1/chat/completions";
+//        model = "Qwen/QwQ-32B";
+//
+//        // 测试调用
+//        String systemPrompt = "你是一个智能助手，请用简洁的语言回答问题";
+//        String userContent = "什么是Python？";
+//        System.out.println("开始流式输出:");
+//        AIUtil.generate(systemPrompt, userContent, true, System.out::println);
     }
 }

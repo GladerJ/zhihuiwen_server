@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Template {
+public class Template implements Serializable{
 
     /**
      * 问卷唯一标识

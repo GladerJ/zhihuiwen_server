@@ -6,6 +6,7 @@ import top.mygld.zhihuiwen_server.pojo.Category;
 import java.util.List;
 
 public interface CategoryService {
+    public List<Category> selectQuestionnaireCategoryByUserId(Long userId);
     public PageInfo<Category> selectQuestionnaireCategoryByUserId(Long userId,int pageNum, int pageSize);
     public void addQuestionnaireCategory(Category category);
     public void addTemplateCategory(Category category);
@@ -23,7 +24,7 @@ public interface CategoryService {
     public PageInfo<Category> selectQuestionnaireCategoryLike(Long userId,String content,int pageNum, int pageSize);
 
 
-
+    public List<Category> selectTemplateCategoryByUserId(Long userId);
     public PageInfo<Category> selectTemplateCategoryByUserId(Long userId,int pageNum, int pageSize);
     public PageInfo<Category> selectTemplateCategoryByUsername(String username,int pageNum, int pageSize);
     public boolean checkTemplateCategoryNameForCreate(Long userId,String name);

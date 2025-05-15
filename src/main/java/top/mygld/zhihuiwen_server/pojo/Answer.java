@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Answer {
+public class Answer implements Serializable {
     private Long id;
     private Long responseId;
     private Long questionId;

@@ -43,4 +43,5 @@ public interface QuestionnaireService {
     Questionnaire selectQuestionnaireByIdDetail(Long id,Long userId);
 
     List<Questionnaire> selectAllQuestionnairesByUserId(Long userId);
+    List<Questionnaire> selectAllQuestionnaireListByUserId(Long userId);
 }

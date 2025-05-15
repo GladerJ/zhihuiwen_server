@@ -51,6 +51,8 @@ public class QuestionnaireController {
         if(!flag) return Result.error("无权限");
         return Result.success(responseService.selectAllResponsesByQuestionnaireId(pageNum,pageSize,questionnaireId));
     }
+
+
     /**
      * 提交问卷回复
      *
@@ -61,13 +63,6 @@ public class QuestionnaireController {
     @PostMapping("/fillQuestionnaire")
     public Result<String> submitResponse(@RequestBody Response response, HttpServletRequest request) {
         if (response == null) return Result.error("参数错误");
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal);
-//        if (principal != null && !(((String) principal).equals("anonymousUser"))) {
-//            Long userId = (Long) principal;
-//            response.setUserId(userId);
-//        }
-
         Response savedResponse = responseService.saveResponse(response, request);
         if (savedResponse != null) return Result.success("保存成功");
         return Result.error("保存失败");
@@ -160,6 +155,58 @@ public class QuestionnaireController {
         if (questionnaire == null)
             return Result.error("问卷不存在");
         return Result.success(questionnaire);
+    }
+
+
+
+    @RequestMapping("/selectAllNeedDeleteResponses")
+    public Result<PageInfo<Response>> selectAllNeedDeleteResponses(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "6") int pageSize,
+            @RequestParam Long questionnaireId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        return Result.success(responseService.selectAllNeedDeleteResponsesByQuestionnaireId(pageNum,pageSize,questionnaireId));
+    }
+
+    @RequestMapping("/selectAllNotNeedDeleteResponses")
+    public Result<PageInfo<Response>> selectAllNotNeedDeleteResponses(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "6") int pageSize,
+            @RequestParam Long questionnaireId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        return Result.success(responseService.selectAllNotNeedDeleteResponsesByQuestionnaireId(pageNum,pageSize,questionnaireId));
+    }
+
+
+    @RequestMapping("/updateResponseValid1")
+    public Result<String> updateResponseValid1(@RequestParam Long questionnaireId,@RequestParam Long responseId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        responseService.updateResponseValid1(responseId);
+        return Result.success("修改成功！");
+    }
+
+    @RequestMapping("/updateResponseValid0")
+    public Result<String> updateResponseValid0(@RequestParam Long questionnaireId,@RequestParam Long responseId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        responseService.updateResponseValid0(responseId);
+        return Result.success("修改成功！");
+    }
+
+    @GetMapping("/deleteReponse")
+    public Result<String> deleteResponse(Long questionnaireId,Long responseId){
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean flag = questionnaireService.checkQuestionnaireForUserId(userId,questionnaireId);
+        if(!flag) return Result.error("无权限");
+        responseService.deleteResponseByResponseId(responseId,questionnaireId);
+        return Result.success("删除成功");
     }
 
 }

@@ -19,4 +19,24 @@ public interface ResponseService {
 
     @Transactional
     int deleteResponseByQuestionnaireId(Long questionnaireId);
+    @Transactional
+    PageInfo<Response> selectAllNeedDeleteResponsesByQuestionnaireId(int pageNum, int pageSize, Long questionnaireId);
+
+    @Transactional
+    List<Response> selectAllNeedDeleteResponsesByQuestionnaireId(Long id);
+
+    @Transactional
+    int updateResponseValid1(Long responseId);
+
+    @Transactional
+    int updateResponseValid0(Long responseId);
+
+    @Transactional
+    PageInfo<Response> selectAllNotNeedDeleteResponsesByQuestionnaireId(int pageNum, int pageSize, Long questionnaireId);
+
+    @Transactional
+    public List<Response> selectAllNotNeedDeleteResponsesByQuestionnaireId(Long id);
+
+
+    int deleteResponseByResponseId(Long responseId,Long questionnaireId);
 }

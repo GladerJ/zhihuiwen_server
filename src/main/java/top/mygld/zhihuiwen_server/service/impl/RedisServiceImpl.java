@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import top.mygld.zhihuiwen_server.service.RedisService;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -50,5 +51,14 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public String ping() {
         return redisTemplate.getConnectionFactory().getConnection().ping();
+    }
+
+    @Override
+    public void deleteByPrefix(String prefix) {
+        String pattern = prefix + "*";
+        Set<String> keys = redisTemplate.keys(pattern);
+        if (keys != null && !keys.isEmpty()) {
+            redisTemplate.delete(keys);
+        }
     }
 }

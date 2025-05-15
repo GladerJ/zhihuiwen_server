@@ -10,4 +10,14 @@ public interface ResponseMapper {
     public int insertResponse(Response response);
     public List<Response> selectAllResponsesByQuestionnaireId(Long questionnaireId);
     int deleteResponseByQuestionnaireId(Long questionnaireId);
+
+    List<Response> selectAllNeedDeleteResponsesByQuestionnaireId(Long questionnaireId);
+
+    List<Response> selectAllNotNeedDeleteResponsesByQuestionnaireId(Long questionnaireId);
+
+    int updateResponseValid1(Long responseId);
+
+    int updateResponseValid0(Long responseId);
+
+    int deleteResponseByResponseId(Long responseId);
 }

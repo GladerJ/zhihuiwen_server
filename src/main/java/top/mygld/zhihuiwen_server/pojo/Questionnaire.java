@@ -21,7 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Questionnaire{
+public class Questionnaire implements Serializable{
 
     /**
     * 问卷唯一标识

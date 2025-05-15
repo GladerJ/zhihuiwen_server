@@ -107,4 +107,4 @@ mybatis:
 ai:
   url: https://api.siliconflow.cn/v1/chat/completions
   key: sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx
-  model: Qwen/Qwen2.5-Coder-32B-Instruct
+#  model: Qwen/Qwen2.5-Coder-32B-Instruct

@@ -11,4 +11,5 @@ public interface ReportMapper {
     int selectReportIdByQuestionnaireId(Long questionnaireId);
     Report selectReportByQuestionnaireId(Long questionnaireId);
     int deleteReportByQuestionnaireId(Long questionnaireId);
+    String selectSummaryByQuestionnaireId(Long questionnaireId);
 }

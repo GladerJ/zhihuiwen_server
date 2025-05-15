@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Response {
+public class Response implements Serializable {
     private Long id;
     private Long questionnaireId;
     private Long userId;
@@ -21,4 +22,5 @@ public class Response {
     private String userAgent;
     private Date submittedAt;
     private List<Answer> answers;
+    private Boolean isValid;
 }

@@ -5,7 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="57fdfcf7-f367-4b00-b37e-48bd767adecb" name="Changes" comment="2025/03/28,是个值得纪念的日子，毕设写完了，虽然比较仓促，没写管理员端">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/AIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/AIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/QuestionnaireController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/controller/QuestionnaireController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/QuestionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/QuestionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/dto/QuestionnaireDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/ReportMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/ReportMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/ResponseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/mapper/ResponseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Questionnaire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Questionnaire.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/QuestionnaireQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Report.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Template.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/Template.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TemplateOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TemplateOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TemplateQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TemplateQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TotalReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/pojo/TotalReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/prompt/AIPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/prompt/AIPrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/QuestionnaireService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/QuestionnaireService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/ResponseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/ResponseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/TemplateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/TemplateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/QuestionnaireServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/QuestionnaireServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/ReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/ReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/ResponseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/ResponseServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/TemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/service/impl/TemplateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/AIUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/top/mygld/zhihuiwen_server/utils/AIUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/generate.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/ReportMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/ReportMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/ResponseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/top/mygld/zhihuiwen_server/mapper/ResponseMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/top/mygld/zhihuiwen_server/ZhihuiwenServerApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,50 +108,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AIUtil.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main (4).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main (5).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ZhihuiwenServerApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ZhihuiwenServerApplicationTests.test1.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ZhihuiwenServerApplicationTests.test2.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ZhihuiwenServerApplicationTests.test3.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhihuiwen_server [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhihuiwen_server [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.zhihuiwen_server [test].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ZhihuiwenServerApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/zhihuiwen/zhihuiwen_server/src/main/resources/top/mygld/zhihuiwen_server/mapper&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AIUtil.executor": "Run",
+    "Application.Child.executor": "Run",
+    "Application.Main (1).executor": "Run",
+    "Application.Main (2).executor": "Run",
+    "Application.Main (3).executor": "Run",
+    "Application.Main (4).executor": "Run",
+    "Application.Main (5).executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.top.mygld.zhihuiwen_server.Main.executor": "Run",
+    "JUnit.ZhihuiwenServerApplicationTests.contextLoads.executor": "Run",
+    "JUnit.ZhihuiwenServerApplicationTests.test1.executor": "Run",
+    "JUnit.ZhihuiwenServerApplicationTests.test2.executor": "Run",
+    "JUnit.ZhihuiwenServerApplicationTests.test3.executor": "Run",
+    "Maven.zhihuiwen_server [clean].executor": "Run",
+    "Maven.zhihuiwen_server [package].executor": "Run",
+    "Maven.zhihuiwen_server [test].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ZhihuiwenServerApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/zhihuiwen/zhihuiwen_server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;redis&quot;,
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redis",
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -119,12 +164,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.ZhihuiwenServerApplication">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.prompt.Main" />
+    <configuration name="Child" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.Child" />
       <module name="zhihuiwen_server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="top.mygld.zhihuiwen_server.prompt.*" />
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -145,12 +190,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.prompt.Main" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.controller.Main" />
       <module name="zhihuiwen_server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="top.mygld.zhihuiwen_server.prompt.*" />
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -158,12 +203,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.controller.Main" />
+    <configuration name="top.mygld.zhihuiwen_server.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="top.mygld.zhihuiwen_server.Main" />
       <module name="zhihuiwen_server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="top.mygld.zhihuiwen_server.controller.*" />
+          <option name="PATTERN" value="top.mygld.zhihuiwen_server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -187,10 +232,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ZhihuiwenServerApplication" />
+        <item itemvalue="Application.Child" />
+        <item itemvalue="Application.top.mygld.zhihuiwen_server.Main" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (2)" />
-        <item itemvalue="Application.Main (1)" />
-        <item itemvalue="Application.Main (5)" />
       </list>
     </recent_temporary>
   </component>
@@ -274,7 +319,41 @@
       <workItem from="1743046612455" duration="12826000" />
       <workItem from="1743070648019" duration="2031000" />
       <workItem from="1743076116769" duration="19849000" />
-      <workItem from="1743134272668" duration="12711000" />
+      <workItem from="1743134272668" duration="20173000" />
+      <workItem from="1743173308412" duration="689000" />
+      <workItem from="1743226825793" duration="66000" />
+      <workItem from="1743392032068" duration="73000" />
+      <workItem from="1743396584493" duration="16000" />
+      <workItem from="1743479541351" duration="3771000" />
+      <workItem from="1743486235147" duration="9000" />
+      <workItem from="1743496263394" duration="1295000" />
+      <workItem from="1743685735999" duration="3896000" />
+      <workItem from="1743844962974" duration="372000" />
+      <workItem from="1743845498061" duration="4578000" />
+      <workItem from="1743854682799" duration="4178000" />
+      <workItem from="1743860334263" duration="1242000" />
+      <workItem from="1743862945321" duration="54000" />
+      <workItem from="1744003350958" duration="2406000" />
+      <workItem from="1744020769149" duration="9462000" />
+      <workItem from="1744119619007" duration="1975000" />
+      <workItem from="1746085770121" duration="3455000" />
+      <workItem from="1746103806176" duration="8478000" />
+      <workItem from="1746155130820" duration="5870000" />
+      <workItem from="1746182657832" duration="5000" />
+      <workItem from="1746194507763" duration="7800000" />
+      <workItem from="1746244891277" duration="33000" />
+      <workItem from="1746252896534" duration="7615000" />
+      <workItem from="1746278368900" duration="689000" />
+      <workItem from="1746363492033" duration="1115000" />
+      <workItem from="1746418169412" duration="4097000" />
+      <workItem from="1746443041513" duration="7100000" />
+      <workItem from="1746500969597" duration="23000" />
+      <workItem from="1746519504348" duration="4300000" />
+      <workItem from="1746536984738" duration="913000" />
+      <workItem from="1746539145052" duration="2195000" />
+      <workItem from="1746594386086" duration="4205000" />
+      <workItem from="1746626197837" duration="1626000" />
+      <workItem from="1746664439442" duration="5983000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -380,7 +459,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743147159217</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="2025/03/28,是个值得纪念的日子，毕设写完了，虽然比较仓促，没写管理员端">
+      <option name="closed" value="true" />
+      <created>1743147226158</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1743147226158</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

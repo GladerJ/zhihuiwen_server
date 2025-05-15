@@ -41,5 +41,10 @@ public class ReportServiceImpl implements ReportService {
         return reportMapper.deleteReportByQuestionnaireId(questionnaireId);
     }
 
+    @Override
+    public String selectSummaryByQuestionnaireId(Long questionnaireId) {
+        return reportMapper.selectSummaryByQuestionnaireId(questionnaireId);
+    }
+
 
 }

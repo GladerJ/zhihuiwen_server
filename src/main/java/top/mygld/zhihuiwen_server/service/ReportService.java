@@ -9,4 +9,6 @@ public interface ReportService {
     int selectReportIdByQuestionnaireId(Long questionnaireId);
     Report selectReportByQuestionnaireId(Long questionnaireId);
     int deleteReportByQuestionnaireId(Long questionnaireId);
+
+    String selectSummaryByQuestionnaireId(Long questionnaireId);
 }

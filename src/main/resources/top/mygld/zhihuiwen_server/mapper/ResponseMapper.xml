@@ -7,10 +7,31 @@
         INSERT INTO response(questionnaire_id, user_id, duration, ip_address, user_agent, submitted_at)
         VALUES (#{questionnaireId}, #{userId}, #{duration}, #{ipAddress}, #{userAgent}, #{submittedAt})
     </insert>
+    <update id="updateResponseValid1">
+        UPDATE response
+        SET is_valid = 1
+        WHERE id = #{reponseId}
+    </update>
+    <update id="updateResponseValid0">
+        UPDATE response
+        SET is_valid = 0
+        WHERE id = #{reponseId}
+    </update>
     <delete id="deleteResponseByQuestionnaireId">
         DELETE FROM response WHERE questionnaire_id = #{questionnaireId}
     </delete>
+    <delete id="deleteResponseByResponseId">
+        DELETE FROM response WHERE id = #{responseId}
+    </delete>
     <select id="selectAllResponsesByQuestionnaireId" resultType="top.mygld.zhihuiwen_server.pojo.Response">
         SELECT * FROM response WHERE questionnaire_id = #{questionnaireId}
+    </select>
+    <select id="selectAllNeedDeleteResponsesByQuestionnaireId"
+            resultType="top.mygld.zhihuiwen_server.pojo.Response">
+        SELECT * FROM response WHERE questionnaire_id = #{questionnaireId} and is_valid = 0
+    </select>
+    <select id="selectAllNotNeedDeleteResponsesByQuestionnaireId"
+            resultType="top.mygld.zhihuiwen_server.pojo.Response">
+        SELECT * FROM response WHERE questionnaire_id = #{questionnaireId} and ( is_valid = 1 or is_valid IS NULL)
     </select>
 </mapper>

@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.mygld.zhihuiwen_server.mapper.CategoryMapper;
 import top.mygld.zhihuiwen_server.mapper.QuestionnaireMapper;
+import top.mygld.zhihuiwen_server.mapper.TemplateMapper;
 import top.mygld.zhihuiwen_server.pojo.Category;
 import top.mygld.zhihuiwen_server.pojo.Questionnaire;
 import top.mygld.zhihuiwen_server.pojo.User;
 import top.mygld.zhihuiwen_server.service.CategoryService;
+import top.mygld.zhihuiwen_server.service.TemplateService;
 import top.mygld.zhihuiwen_server.service.UserService;
 import top.mygld.zhihuiwen_server.service.QuestionnaireService;
 
@@ -29,6 +31,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     QuestionnaireMapper questionnaireMapper;
+
+    @Autowired
+    TemplateService templateService;
+
+    @Autowired
+    TemplateMapper templateMapper;
+
+    @Override
+    public List<Category> selectQuestionnaireCategoryByUserId(Long userId) {
+        return categoryMapper.selectQuestionnaireCategoryByUserId(userId);
+    }
 
     @Override
     public PageInfo<Category> selectQuestionnaireCategoryByUserId(Long userId, int pageNum, int pageSize) {
@@ -76,11 +89,20 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Category category) {
-        questionnaireMapper.selectAllById(category.getUserId(), category.getId()).stream().forEach(
-                questionnaire -> {
-                    questionnaireService.deleteQuestionnaire(questionnaire);
-                }
-        );
+        if (category.getCatalog() == "questionnaire") {
+            questionnaireMapper.selectAllById(category.getUserId(), category.getId()).stream().forEach(
+                    questionnaire -> {
+                        questionnaireService.deleteQuestionnaire(questionnaire);
+                    }
+            );
+        } else {
+            templateMapper.selectAllById(category.getUserId(), category.getId()).stream().forEach(
+                    template -> {
+                        templateService.deleteTemplate(template);
+                    }
+            );
+        }
+
         categoryMapper.deleteCategory(category);
     }
 
@@ -91,10 +113,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageInfo<Category> selectQuestionnaireCategoryLike(Long userId,String content, int pageNum, int pageSize) {
+    public PageInfo<Category> selectQuestionnaireCategoryLike(Long userId, String content, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Category> categories = categoryMapper.selectQuestionnaireCategoryLike(userId,content);
+        List<Category> categories = categoryMapper.selectQuestionnaireCategoryLike(userId, content);
         return new PageInfo<>(categories);
+    }
+
+    @Override
+    public List<Category> selectTemplateCategoryByUserId(Long userId) {
+        return categoryMapper.selectTemplateCategoryByUserId(userId);
     }
 
     //Template部分
@@ -128,9 +155,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public PageInfo<Category> selectTemplateCategoryLike(Long userId,String content, int pageNum, int pageSize) {
+    public PageInfo<Category> selectTemplateCategoryLike(Long userId, String content, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Category> categories = categoryMapper.selectTemplateCategoryLike(userId,content);
+        List<Category> categories = categoryMapper.selectTemplateCategoryLike(userId, content);
         return new PageInfo<>(categories);
     }
 

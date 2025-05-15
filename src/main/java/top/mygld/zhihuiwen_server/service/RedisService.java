@@ -20,4 +20,7 @@ public interface RedisService {
 
     // 连接检查（可选）
     String ping();
+
+    // 新增：根据前缀批量删除
+    void deleteByPrefix(String prefix);
 }

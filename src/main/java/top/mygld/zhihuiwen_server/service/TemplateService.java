@@ -21,4 +21,5 @@ public interface TemplateService {
     Template selectPublicTemplateById(Long id);
 
     List<Template> selectAllTemplatesByUserId(Long userId);
+    List<Template> selectAllTemplateListByUserId(Long userId);
 }

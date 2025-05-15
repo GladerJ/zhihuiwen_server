@@ -3,24 +3,21 @@ package top.mygld.zhihuiwen_server.controller;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import top.mygld.zhihuiwen_server.common.Result;
 import top.mygld.zhihuiwen_server.dto.QuestionDTO;
-import top.mygld.zhihuiwen_server.mapper.QuestionnaireMapper;
 import top.mygld.zhihuiwen_server.pojo.*;
 import top.mygld.zhihuiwen_server.service.*;
-import top.mygld.zhihuiwen_server.service.impl.UserServiceImpl;
 import top.mygld.zhihuiwen_server.utils.AIUtil;
 import top.mygld.zhihuiwen_server.utils.JWTUtil;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CompletionException;
 
 import static top.mygld.zhihuiwen_server.prompt.AIPrompt.*;
 
@@ -43,12 +40,15 @@ public class AIController {
     @Autowired
     private TotalReportService totalReportService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     // 存储活跃的 SseEmitter 实例，用于管理和取消生成任务
     private final ConcurrentHashMap<Long, SseEmitter> activeEmitters = new ConcurrentHashMap<>();
 
     @PostMapping("/modifyQuestion")
     public Result<QuestionnaireQuestion> modifyQuestion(@RequestBody QuestionDTO questionDTO) {
-        String result = AIUtil.generate(prompt3, JSON.toJSONString(questionDTO), false);
+        String result = AIUtil.generate(prompt3, JSON.toJSONString(questionDTO), null, false);
         QuestionnaireQuestion questionnaireQuestion = JSON.parseObject(result, QuestionnaireQuestion.class);
         return Result.success(questionnaireQuestion);
     }
@@ -56,15 +56,16 @@ public class AIController {
 
     @GetMapping("/generateQuestionnaire")
     public Result<Questionnaire> generateQuestionnaire(@RequestParam String content) {
-        String result = AIUtil.generate(prompt2, content, false);
+        String result = AIUtil.generate(prompt2, content, null, false);
         Questionnaire questionnaire = JSON.parseObject(result, Questionnaire.class);
         return Result.success(questionnaire);
     }
 
     /**
      * 取消生成过程的端点
+     *
      * @param questionnaireId 问卷ID
-     * @param token 认证令牌
+     * @param token           认证令牌
      * @return 操作结果
      */
     @PostMapping("/cancelGeneration")
@@ -108,14 +109,12 @@ public class AIController {
         if (JWTUtil.getUserIdFromToken(token) == null || token.trim().isEmpty()) {
             throw new RuntimeException("Token is missing or invalid");
         }
-
         // timeout = 0L 表示无限等待
         SseEmitter emitter = new SseEmitter(0L);
-
         CompletableFuture.runAsync(() -> {
             try {
                 // 调用流式生成方法
-                AIUtil.generate(prompt1, content, true, partialText -> {
+                AIUtil.generate(prompt1, content, true, null, partialText -> {
                     try {
                         // 每获取一段文本，发送到前端
                         Result<String> partialResult = new Result<>(200, "success", partialText);
@@ -126,7 +125,6 @@ public class AIController {
                         throw new RuntimeException(e);
                     }
                 });
-
                 // 全部生成完后发送结束标记
                 Result<String> doneResult = new Result<>(200, "success", "[DONE]");
                 emitter.send(SseEmitter.event().data(doneResult));
@@ -141,7 +139,8 @@ public class AIController {
         return emitter;
     }
 
-    @GetMapping(value = "/streamGenerateQuestionnaire", produces = MediaType.TEXT_EVENT_STREAM_VALUE) // SSE类型: text/event-stream
+    @GetMapping(value = "/streamGenerateQuestionnaire", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    // SSE类型: text/event-stream
     public SseEmitter streamGenerateQuestionnaire(@RequestParam String content, @RequestParam String token) {
         // 校验 Token
         if (JWTUtil.getUserIdFromToken(token) == null || token.trim().isEmpty()) {
@@ -149,7 +148,6 @@ public class AIController {
         }
         // timeout = 0L 表示无限等待
         SseEmitter emitter = new SseEmitter(0L);
-
         // 如果 content 为空，直接返回结束标志
         if (content == null || content.trim().isEmpty()) {
             try {
@@ -161,12 +159,11 @@ public class AIController {
             emitter.complete();
             return emitter;
         }
-
         CompletableFuture.runAsync(() -> {
             try {
                 StringBuilder buffer = new StringBuilder();
                 // 调用流式生成方法，传入 prompt4 和用户输入内容
-                AIUtil.generate(prompt4, content, true, partialText -> {
+                AIUtil.generate(prompt4, content, true, null, partialText -> {
                     try {
                         // 将每次回调的文本追加到缓冲区
                         buffer.append(partialText);
@@ -219,7 +216,6 @@ public class AIController {
         if (userId == null || token.trim().isEmpty()) {
             throw new RuntimeException("Token is missing or invalid");
         }
-
         // 检查用户是否有权限访问该问卷
         boolean hasPermission = questionnaireService.checkQuestionnaireForUserId(userId, questionnaireId);
         if (!hasPermission) {
@@ -234,10 +230,8 @@ public class AIController {
             }
             return emitter;
         }
-
         // 设置超时时间为3分钟
         SseEmitter emitter = new SseEmitter(180000L);
-
         // 保存到活跃emitters映射中
         activeEmitters.put(questionnaireId, emitter);
 
@@ -271,7 +265,7 @@ public class AIController {
             boolean[] cancelled = new boolean[1]; // 使用数组实现可变布尔值
 
             try {
-                // 获取问卷和回答数据
+                // 获取问卷和和有效回答数据
                 Questionnaire questionnaire = questionnaireService.selectQuestionnaireByIdDetail(questionnaireId, userId);
                 if (questionnaire == null) {
                     throw new RuntimeException("问卷不存在");
@@ -279,11 +273,10 @@ public class AIController {
 
                 List<Response> responses = responseService.selectAllResponsesByQuestionnaireId(questionnaireId);
                 String content = questionnaire.toString() + '\n' + responses.toString();
-
                 // 确保AI生成过程中的任何异常都在此处捕获并处理
                 try {
                     // 调用流式生成方法
-                    AIUtil.generate(prompt5, content, true, partialText -> {
+                    AIUtil.generate(prompt5, content, true, null, partialText -> {
                         // 如果已经取消或emitter不再活跃，直接返回
                         if (cancelled[0] || !activeEmitters.containsKey(questionnaireId)) {
                             return;
@@ -442,7 +435,6 @@ public class AIController {
     }
 
 
-
     // 生成用户个人总结
     @GetMapping(value = "/streamTotalReport", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter streamTotalReport(@RequestParam String token) {
@@ -502,13 +494,28 @@ public class AIController {
             boolean[] cancelled = new boolean[1];
             try {
                 // 获取问卷和模板数据
-                List<Questionnaire> questionnaires = questionnaireService.selectAllQuestionnairesByUserId(userId);
-                List<Template> templates = templateService.selectAllTemplatesByUserId(userId);
-                String content = questionnaires.toString() + "\n" + templates.toString();
+                List<Category> questionnaireCategories = categoryService.selectQuestionnaireCategoryByUserId(userId);
+                List<Category> TemplateCategories = categoryService.selectTemplateCategoryByUserId(userId);
+                List<Questionnaire> questionnaires = questionnaireService.selectAllQuestionnaireListByUserId(userId);
+                String existedReport = "";
+                for (Questionnaire questionnaire : questionnaires) {
+                    String summary = reportService.selectSummaryByQuestionnaireId(questionnaire.getId());
+                    existedReport += "问卷标题：" + questionnaire.getTitle() + "\n" +
+                            (summary == null ? "无总结内容" : summary) + "\n\n";
+                }
+
+                List<Template> templates = templateService.selectAllTemplateListByUserId(userId);
+                String content = "问卷分类列表：" + questionnaireCategories + '\n'
+                        + "模板分类列表：" + TemplateCategories + '\n'
+                        + "问卷列表:" + questionnaires + '\n'
+                        + "根据收集到的数据对问卷进行的总结：\n" + existedReport + '\n'
+                        + "模板列表:" + templates + '\n';
+
+                System.out.println(content);
 
                 try {
                     // 调用AI生成方法，stream式传输结果，每段文本通过回调返回
-                    AIUtil.generate(prompt6, content, true, partialText -> {
+                    AIUtil.generate(prompt6, content, true, null, partialText -> {
                         // 如果已经取消或emitter不在活跃映射中，则停止回调
                         if (cancelled[0] || !activeEmitters.containsKey(userId)) {
                             return;
@@ -615,6 +622,23 @@ public class AIController {
             // 记录错误但不抛出异常
             e.printStackTrace();
         }
+    }
+
+
+    @GetMapping("/checkResponseValid")
+    public Result<String> modifyQuestion(Long questionnaireId) {
+        Long userId = (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Questionnaire questionnaire = questionnaireService.selectQuestionnaireByIdAndUserId(questionnaireId, userId);
+        List<Response> responses = responseService.selectAllResponsesByQuestionnaireId(questionnaireId);
+        String content = questionnaire.toString() + "\n" + responses.toString();
+        String result = AIUtil.generate(prompt7, content, null, false);
+        if (!result.equals("[]")) {
+            String[] ids = result.replace('[', ' ').replace(']', ' ').trim().split(",");
+            for (String id : ids) {
+                responseService.updateResponseValid0(Long.parseLong(id.trim()));
+            }
+        }
+        return Result.success("检测完成");
     }
 
 
