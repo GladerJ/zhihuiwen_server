@@ -17,7 +17,7 @@ spring:
   mail:
     host: smtp.163.com
     username: zhihuiwen2025@163.com
-    password: PZdt9v4xACSzteWJ
+    password: {{自行填写}}
     port: 465
     protocol: smtp
     default-encoding: utf-8
@@ -76,10 +76,10 @@ aj:
 # 腾讯云对象存储api配置
 tencent:
   cos:
-    secretId: AKIDBE8prpbEmCSZXLxOekcgYFl4B5tUt41n
-    secretKey: c3LSM3XoxvgEfttlS3SdaMuEKG62oN0m
-    region: ap-nanjing
-    bucketName: hello1-1309694135
+    secretId: {{自行填写}}
+    secretKey: {{自行填写}}
+    region: {{自行填写}}
+    bucketName: {{自行填写}}
 
 
 #JWT令牌相关配置
@@ -106,5 +106,5 @@ mybatis:
 # AI 接口配置
 ai:
   url: https://api.siliconflow.cn/v1/chat/completions
-  key: sk-ctpycdhnzamkasvwwfxfposlgxcyrwltebtfnroshzkxwgtx
-#  model: Qwen/Qwen2.5-Coder-32B-Instruct
+  key: {{自行填写}}
+#  model: {{自行填写}}
